@@ -1,0 +1,11 @@
+/nbproject
+/.project
+/lib/vendor/
+/plugins/
+cache/*
+log/*
+web/uploads/*
+config/databases.yml
+data/sql/*
+web/*Plugin
+/bin/

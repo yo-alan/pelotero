@@ -1,0 +1,54 @@
+#!/usr/bin/env php
+<?php
+require("funcs.php");
+
+echoln("Starting script!!");
+
+$project_name = read_from_keyboard("\nProject name: ");
+
+$base_path = ".";
+
+# init sf project as git project
+system_call("git init");
+
+echoln("** creating project $project_name...");
+
+system_call("php bin/symfony generate:project --orm=propel $project_name");
+system_call("php symfony generate:app frontend --csrf-secret=".md5(rand()));
+touch("cache/.gitkeep") or die("Can't create file: 'cache/.gitkeep' for some reason. Aborting.\n\n");
+touch("log/.gitkeep") or die("Can't create file: 'log/.gitkeep' for some reason. Aborting.\n\n");
+
+# set HTTPS as default protocol to avoid firewall issues
+system_call("git config --global url.\"https://\".insteadOf git://");
+
+# copy base files from plugin
+copy_or_die("src/file_templates/config/databases.yml.dist", "config/databases.yml.dist");
+copy_or_die("config/databases.yml.dist", "config/databases.yml");
+copy_or_die("src/file_templates/config/schema.custom.yml", "config/schema.custom.yml");
+copy_or_die("src/file_templates/apps/foo/config/factories.yml", "apps/frontend/config/factories.yml");
+@unlink("lib/vendor/propel/propel1/generator/build-propel.xml");
+copy_or_die("src/file_templates/config/build-propel.xml", "lib/vendor/propel/propel1/generator/build-propel.xml");
+mkdir_or_die('config/error', null, true);
+copyr("src/file_templates/apps/foo/i18n", "apps/frontend/");
+
+# update base files
+replace_in_file("PROJECT_NAME", $project_name, "apps/frontend/config/factories.yml");
+replace_in_file("PROJECT_NAME", $project_name, "config/databases.yml");
+replace_in_file("sfPropelPlugin", "sfPropelORMPlugin", "config/propel.ini");
+replace_in_file("propel.addTimeStamp        = true", "propel.addTimeStamp        = false", "config/propel.ini");
+replace_in_file("'sfPropelPlugin'", "'sfPropelORMPlugin'", "config/ProjectConfiguration.class.php");
+replace_in_file("  }", "  sfConfig::set('sf_phing_path', sfConfig::get('sf_lib_dir') .'/vendor/phing/phing');\n  }", "config/ProjectConfiguration.class.php");
+replace_in_file("  }", "  sfConfig::set('sf_propel_path', sfConfig::get('sf_lib_dir') .'/vendor/propel/propel1');\n  }", "config/ProjectConfiguration.class.php");
+
+# ProjectConfiguration.class.php is ready, time to publish assets
+copyr("lib/vendor/symfony/symfony1/symfony-1.4.20/data/web/sf", "web/sf");  //avoid the symlink mess...
+echoln("Publishing plugin assets...");
+system_call("php symfony plugin:publish-assets");
+
+# Update git repo and clear cache
+
+system_call("git add .");
+system_call("git commit -m \"Very first commit of this project\"");
+system_call("php symfony cc");
+
+echoln("All tasks completed!");

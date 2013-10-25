@@ -1,0 +1,5 @@
+#this file extends your Propel schema.yml file, allowing to perform propel:build-schema without worries.
+propel:
+  _attributes:
+  package: lib.model
+  defaultIdMethod: native

@@ -1,0 +1,41 @@
+{
+    "name": "mppfiles/symfony1-boilerplate",
+    "authors": [
+        {
+            "name": "mppfiles",
+            "email": "mppfiles@gmail.com"
+        }
+    ],
+    "description": "A boilerplate for symfony 1.x projects, with the latest sfPropelORMPlugin",
+    "license": "MIT",
+    
+    "config": {
+        "vendor-dir": "lib/vendor",
+        "bin-dir": "bin"
+    },    
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "symfony/symfony1",
+                "version": "1.4.20",
+                "dist": {
+                    "url": "http://pear.symfony-project.com/get/symfony-1.4.20.tgz",
+                    "type": "tar"
+                },
+                "source": {
+                    "url": "http://github.com/symfony/symfony1.git",
+                    "type": "git",
+                    "reference": "tags/v1.4.20"
+                },
+                "bin": ["symfony-1.4.20/data/bin/symfony", "symfony-1.4.20/data/bin/symfony.bat"]
+            }
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/symfony1": "1.4.20",
+        "propel/sf-propel-o-r-m-plugin": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
