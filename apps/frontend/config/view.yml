@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    [main.css, ../bootstrap/css/bootstrap.css, ../bootstrap/css/default.css]
 
-  javascripts:    []
+  javascripts:    [../bootstrap/js/bootstrap.js, ../bootstrap/js/twitter-bootstrap-hover-dropdown.min.js, ../bootstrap/js/jquery.js]
 
   has_layout:     true
   layout:         layout

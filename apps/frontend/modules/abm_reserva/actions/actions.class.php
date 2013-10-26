@@ -19,4 +19,9 @@ class abm_reservaActions extends sfActions
   {
     $this->forward('default', 'module');
   }
+  
+  public function executeAltaReserva(sfWebRequest $request)
+  {
+	
+  }
 }
