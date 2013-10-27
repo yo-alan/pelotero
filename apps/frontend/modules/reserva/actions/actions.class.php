@@ -8,7 +8,7 @@
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class abm_reservaActions extends sfActions
+class reservaActions extends sfActions
 {
  /**
   * Executes index action
@@ -20,7 +20,17 @@ class abm_reservaActions extends sfActions
     $this->forward('default', 'module');
   }
   
-  public function executeAltaReserva(sfWebRequest $request)
+  public function executeAgregar(sfWebRequest $request)
+  {
+	
+  }
+  
+  public function executeEliminar(sfWebRequest $request)
+  {
+	
+  }
+  
+  public function executeEditar(sfWebRequest $request)
   {
 	
   }

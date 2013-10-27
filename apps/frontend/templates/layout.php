@@ -6,7 +6,6 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<?php include_stylesheets() ?>
 		<?php include_javascripts() ?>
-		<title>Página principal | Pelotero S.A.</title>
 	</head>
 	<body>
 		<header>
