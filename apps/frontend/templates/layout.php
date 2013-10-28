@@ -6,6 +6,7 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<?php include_stylesheets() ?>
 		<?php include_javascripts() ?>
+		<?php use_javascript('jquery')?>
 	</head>
 	<body>
 		<header>
@@ -17,9 +18,9 @@
 							Reservas <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="../web/agregarReserva.php">Agregar reserva</a></li>
-							<li><a href="../web/eliminarReserva.php">Eliminar reserva</a></li>
-							<li><a href="../web/editarReserva.php">Editar reserva</a></li>
+							<li><a href="agregar">Agregar reserva</a></li>
+							<li><a href="eliminar">Eliminar reserva</a></li>
+							<li><a href="editar">Editar reserva</a></li>
 						</ul>
 					</div>
 					<div class="btn-group">

@@ -22,16 +22,22 @@ class reservaActions extends sfActions
   
   public function executeAgregar(sfWebRequest $request)
   {
+	$respuesta = $this->getResponse();
 	
+	$respuesta->setTitle("Agregar Reserva | Pelotero S.A.");
   }
   
   public function executeEliminar(sfWebRequest $request)
   {
+	$respuesta = $this->getResponse();
 	
+	$respuesta->setTitle("Eliminar Reserva | Pelotero S.A.");
   }
   
   public function executeEditar(sfWebRequest $request)
   {
+	$respuesta = $this->getResponse();
 	
+	$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
   }
 }

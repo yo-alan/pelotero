@@ -1,0 +1,31 @@
+propel:
+  _attributes:
+    package: lib.model
+    defaultIdMethod: native
+  cliente:
+    _attributes: { phpName: Cliente, idMethod: native }
+    id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
+    nombre: { phpName: Nombre, type: VARCHAR, size: '20', required: true }
+    telefono: { phpName: Telefono, type: VARCHAR, size: '20', required: true }
+  reserva:
+    _attributes: { phpName: Reserva, idMethod: native }
+    id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
+    cliente: { phpName: Cliente, type: INTEGER, required: true, foreignTable: cliente, foreignReference: id }
+    fecha: { phpName: Fecha, type: DATE, required: true }
+    hora: { phpName: Hora, type: CHAR, sqlType: 'enum(''9:00'',''13:00'',''15:00'',''17:00'',''19:00'',''21:00'')', required: true }
+    vigente: { phpName: Vigente, type: BOOLEAN, size: '1', required: true, defaultValue: true }
+    senia: { phpName: Senia, type: DECIMAL, size: '11', scale: '2', required: false, defaultValue: '0.00' }
+    _indexes: { fk_cliente: [cliente] }
+  telefono:
+    _attributes: { phpName: Telefono, idMethod: native }
+    id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
+    reserva: { phpName: Reserva, type: INTEGER, required: true, foreignTable: reserva, foreignReference: id }
+    nom_padre: { phpName: NomPadre, type: VARCHAR, size: '20', required: true }
+    nom_hijo: { phpName: NomHijo, type: VARCHAR, size: '20', required: true }
+    _indexes: { fk_reserva: [reserva] }
+  usuario:
+    _attributes: { phpName: Usuario, idMethod: native }
+    id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
+    usuario: { phpName: Usuario, type: VARCHAR, size: '20', required: true }
+    contrasena: { phpName: Contrasena, type: VARCHAR, size: '30', required: true }
+    _uniques: { usuario: [usuario] }
