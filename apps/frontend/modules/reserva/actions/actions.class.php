@@ -17,7 +17,13 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+	//$this->redirect('homeSuccess');
     $this->forward('default', 'module');
+  }
+  
+  public function executeHome(sfWebRequest $request)
+  {
+	
   }
   
   public function executeAgregar(sfWebRequest $request)

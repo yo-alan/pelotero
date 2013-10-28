@@ -4,13 +4,18 @@
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: reserva, action: home }
 
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
   url:   /:module
-  param: { action: index }
+  param: { action: home }
+
+# Agregado por Alan, para que tenga en cuenta la "/" al final del modulo
+default_home:
+  url:   /:module/
+  param: { action: home }
 
 default:
   url:   /:module/:action/*
