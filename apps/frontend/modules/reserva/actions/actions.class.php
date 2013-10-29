@@ -123,12 +123,15 @@ class reservaActions extends sfActions
 		if(!ctype_digit($request->getParameter('senia'))){
 			$this->errorSenia = true;
 		}
-		if(!checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0])){
+		if(!(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
 			$this->errorFecha = true;
 		}
 		if(!in_array($request->getParameter('hora'), $horasAceptadas)){
 			$this->errorHora = true;
 		}
+		
+		$this->exito = false;
+		$this->error = true;
 		
 		if($this->errorNombre == false && $this->errorTelefono == false && $this->errorSenia == false && $this->errorFecha == false && $this->errorHora == false){
 			$nombre = $nombre;
@@ -149,6 +152,9 @@ class reservaActions extends sfActions
 					->setFecha($fecha)
 					->setHora($hora)
 					->save();
+					
+			$this->exito = true;
+			$this->error = false;
 		}
 	}
 	
@@ -168,6 +174,7 @@ class reservaActions extends sfActions
 	$respuesta = $this->getResponse();
 	
 	$respuesta->setTitle("Eliminar Reserva | Pelotero S.A.");
+	
   }
   
   public function executeEditar(sfWebRequest $request)

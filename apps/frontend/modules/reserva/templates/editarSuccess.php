@@ -1,3 +1,4 @@
+<center><?php if(isset($exito) && $exito) include_partial('reserva/exito'); ?></center>
 <h3>Editar reserva:</h3>
 <div class="container" style="width: 40%">
 	<form method="POST" action="../web/editarReserva.php">

@@ -7,6 +7,7 @@ propel:
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
     nombre: { phpName: Nombre, type: VARCHAR, size: '20', required: true }
     telefono: { phpName: Telefono, type: VARCHAR, size: '20', required: true }
+    _uniques: { nom_tel: [nombre, telefono] }
   reserva:
     _attributes: { phpName: Reserva, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
@@ -16,6 +17,7 @@ propel:
     vigente: { phpName: Vigente, type: BOOLEAN, size: '1', required: true, defaultValue: true }
     senia: { phpName: Senia, type: DECIMAL, size: '11', scale: '2', required: false, defaultValue: '0.00' }
     _indexes: { fk_cliente: [cliente_id] }
+    _uniques: { horario: [fecha, hora] }
   telefono:
     _attributes: { phpName: Telefono, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
@@ -27,5 +29,5 @@ propel:
     _attributes: { phpName: Usuario, idMethod: native }
     id: { phpName: Id, type: INTEGER, primaryKey: true, autoIncrement: true, required: true }
     usuario: { phpName: Usuario, type: VARCHAR, size: '20', required: true }
-    contrasena: { phpName: Contrasena, type: VARCHAR, size: '40', required: true }
+    contrasena: { phpName: Contrasena, type: VARCHAR, size: '30', required: true }
     _uniques: { usuario: [usuario] }

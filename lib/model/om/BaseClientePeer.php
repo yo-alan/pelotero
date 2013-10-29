@@ -781,7 +781,7 @@ abstract class BaseClientePeer
      */
     static public function getUniqueColumnNames()
     {
-      return array();
+      return array(array('nombre', 'telefono'));
     }
 
     // symfony_behaviors behavior

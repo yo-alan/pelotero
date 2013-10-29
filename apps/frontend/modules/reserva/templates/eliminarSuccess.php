@@ -1,3 +1,4 @@
+<center><?php if(isset($exito) && $exito) include_partial('reserva/exito'); ?></center>
 <h3>Eliminar reserva:</h3>
 <div class="container" style="width: 40%">
 	<form method="POST" action="eliminar" role="form">
@@ -32,3 +33,4 @@
 <?php elseif(isset($reservas) && empty($reservas)): ?>
 	<h3 style="color: red">No hay reservas para este dia.</h3>
 <?php endif; ?>
+

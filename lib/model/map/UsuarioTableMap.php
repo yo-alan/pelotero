@@ -40,7 +40,7 @@ class UsuarioTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('usuario', 'Usuario', 'VARCHAR', true, 20, null);
-        $this->addColumn('contrasena', 'Contrasena', 'VARCHAR', true, 40, null);
+        $this->addColumn('contrasena', 'Contrasena', 'VARCHAR', true, 30, null);
         // validators
     } // initialize()
 

@@ -1122,7 +1122,7 @@ abstract class BaseReservaPeer
      */
     static public function getUniqueColumnNames()
     {
-      return array();
+      return array(array('fecha', 'hora'));
     }
 
     // symfony_behaviors behavior

@@ -1,3 +1,5 @@
+<center><?php if(isset($exito) && $exito) include_partial('reserva/exito'); ?></center>
+<center><?php if(isset($error) && $error) include_partial('reserva/error'); ?></center>
 <div class="container" style="width: 40%">
 	<h3>Agregar reserva:</h3>
 	<form method="POST" action="agregar" class="form-horizontal" role="form">
