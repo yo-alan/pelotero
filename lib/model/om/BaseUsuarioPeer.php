@@ -2,70 +2,53 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'reserva' table.
+ * Base static class for performing query and update operations on the 'usuario' table.
  *
  *
  *
  * @package propel.generator.lib.model.om
  */
-abstract class BaseReservaPeer
+abstract class BaseUsuarioPeer
 {
 
     /** the default database name for this class */
     const DATABASE_NAME = 'propel';
 
     /** the table name for this class */
-    const TABLE_NAME = 'reserva';
+    const TABLE_NAME = 'usuario';
 
     /** the related Propel class for this table */
-    const OM_CLASS = 'Reserva';
+    const OM_CLASS = 'Usuario';
 
     /** the related TableMap class for this table */
-    const TM_CLASS = 'ReservaTableMap';
+    const TM_CLASS = 'UsuarioTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 6;
+    const NUM_COLUMNS = 3;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 6;
+    const NUM_HYDRATE_COLUMNS = 3;
 
     /** the column name for the id field */
-    const ID = 'reserva.id';
+    const ID = 'usuario.id';
 
-    /** the column name for the cliente_id field */
-    const CLIENTE_ID = 'reserva.cliente_id';
+    /** the column name for the usuario field */
+    const USUARIO = 'usuario.usuario';
 
-    /** the column name for the fecha field */
-    const FECHA = 'reserva.fecha';
-
-    /** the column name for the hora field */
-    const HORA = 'reserva.hora';
-
-    /** the column name for the vigente field */
-    const VIGENTE = 'reserva.vigente';
-
-    /** the column name for the senia field */
-    const SENIA = 'reserva.senia';
-
-    /** The enumerated values for the hora field */
-    const HORA_9_00 = '9:00';
-    const HORA_13_00 = '13:00';
-    const HORA_15_00 = '15:00';
-    const HORA_17_00 = '17:00';
-    const HORA_19_00 = '19:00';
-    const HORA_21_00 = '21:00';
+    /** the column name for the contrasena field */
+    const CONTRASENA = 'usuario.contrasena';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
 
     /**
-     * An identiy map to hold any loaded instances of Reserva objects.
+     * An identiy map to hold any loaded instances of Usuario objects.
      * This must be public so that other peer classes can access this when hydrating from JOIN
      * queries.
-     * @var        array Reserva[]
+     * @var        array Usuario[]
      */
     public static $instances = array();
 
@@ -74,42 +57,30 @@ abstract class BaseReservaPeer
      * holds an array of fieldnames
      *
      * first dimension keys are the type constants
-     * e.g. ReservaPeer::$fieldNames[ReservaPeer::TYPE_PHPNAME][0] = 'Id'
+     * e.g. UsuarioPeer::$fieldNames[UsuarioPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'ClienteId', 'Fecha', 'Hora', 'Vigente', 'Senia', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'clienteId', 'fecha', 'hora', 'vigente', 'senia', ),
-        BasePeer::TYPE_COLNAME => array (ReservaPeer::ID, ReservaPeer::CLIENTE_ID, ReservaPeer::FECHA, ReservaPeer::HORA, ReservaPeer::VIGENTE, ReservaPeer::SENIA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CLIENTE_ID', 'FECHA', 'HORA', 'VIGENTE', 'SENIA', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'cliente_id', 'fecha', 'hora', 'vigente', 'senia', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Usuario', 'Contrasena', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'usuario', 'contrasena', ),
+        BasePeer::TYPE_COLNAME => array (UsuarioPeer::ID, UsuarioPeer::USUARIO, UsuarioPeer::CONTRASENA, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'USUARIO', 'CONTRASENA', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'usuario', 'contrasena', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, )
     );
 
     /**
      * holds an array of keys for quick access to the fieldnames array
      *
      * first dimension keys are the type constants
-     * e.g. ReservaPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
+     * e.g. UsuarioPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'ClienteId' => 1, 'Fecha' => 2, 'Hora' => 3, 'Vigente' => 4, 'Senia' => 5, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'clienteId' => 1, 'fecha' => 2, 'hora' => 3, 'vigente' => 4, 'senia' => 5, ),
-        BasePeer::TYPE_COLNAME => array (ReservaPeer::ID => 0, ReservaPeer::CLIENTE_ID => 1, ReservaPeer::FECHA => 2, ReservaPeer::HORA => 3, ReservaPeer::VIGENTE => 4, ReservaPeer::SENIA => 5, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CLIENTE_ID' => 1, 'FECHA' => 2, 'HORA' => 3, 'VIGENTE' => 4, 'SENIA' => 5, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'cliente_id' => 1, 'fecha' => 2, 'hora' => 3, 'vigente' => 4, 'senia' => 5, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
-    );
-
-    /** The enumerated values for this table */
-    protected static $enumValueSets = array(
-        ReservaPeer::HORA => array(
-            ReservaPeer::HORA_9_00,
-            ReservaPeer::HORA_13_00,
-            ReservaPeer::HORA_15_00,
-            ReservaPeer::HORA_17_00,
-            ReservaPeer::HORA_19_00,
-            ReservaPeer::HORA_21_00,
-        ),
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Usuario' => 1, 'Contrasena' => 2, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'usuario' => 1, 'contrasena' => 2, ),
+        BasePeer::TYPE_COLNAME => array (UsuarioPeer::ID => 0, UsuarioPeer::USUARIO => 1, UsuarioPeer::CONTRASENA => 2, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'USUARIO' => 1, 'CONTRASENA' => 2, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'usuario' => 1, 'contrasena' => 2, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, )
     );
 
     /**
@@ -124,10 +95,10 @@ abstract class BaseReservaPeer
      */
     public static function translateFieldName($name, $fromType, $toType)
     {
-        $toNames = ReservaPeer::getFieldNames($toType);
-        $key = isset(ReservaPeer::$fieldKeys[$fromType][$name]) ? ReservaPeer::$fieldKeys[$fromType][$name] : null;
+        $toNames = UsuarioPeer::getFieldNames($toType);
+        $key = isset(UsuarioPeer::$fieldKeys[$fromType][$name]) ? UsuarioPeer::$fieldKeys[$fromType][$name] : null;
         if ($key === null) {
-            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(ReservaPeer::$fieldKeys[$fromType], true));
+            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(UsuarioPeer::$fieldKeys[$fromType], true));
         }
 
         return $toNames[$key];
@@ -144,55 +115,11 @@ abstract class BaseReservaPeer
      */
     public static function getFieldNames($type = BasePeer::TYPE_PHPNAME)
     {
-        if (!array_key_exists($type, ReservaPeer::$fieldNames)) {
+        if (!array_key_exists($type, UsuarioPeer::$fieldNames)) {
             throw new PropelException('Method getFieldNames() expects the parameter $type to be one of the class constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME, BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM. ' . $type . ' was given.');
         }
 
-        return ReservaPeer::$fieldNames[$type];
-    }
-
-    /**
-     * Gets the list of values for all ENUM columns
-     * @return array
-     */
-    public static function getValueSets()
-    {
-      return ReservaPeer::$enumValueSets;
-    }
-
-    /**
-     * Gets the list of values for an ENUM column
-     *
-     * @param string $colname The ENUM column name.
-     *
-     * @return array list of possible values for the column
-     */
-    public static function getValueSet($colname)
-    {
-        $valueSets = ReservaPeer::getValueSets();
-
-        if (!isset($valueSets[$colname])) {
-            throw new PropelException(sprintf('Column "%s" has no ValueSet.', $colname));
-        }
-
-        return $valueSets[$colname];
-    }
-
-    /**
-     * Gets the SQL value for the ENUM column value
-     *
-     * @param string $colname ENUM column name.
-     * @param string $enumVal ENUM value.
-     *
-     * @return int            SQL value
-     */
-    public static function getSqlValueForEnum($colname, $enumVal)
-    {
-        $values = ReservaPeer::getValueSet($colname);
-        if (!in_array($enumVal, $values)) {
-            throw new PropelException(sprintf('Value "%s" is not accepted in this enumerated column', $colname));
-        }
-        return array_search($enumVal, $values);
+        return UsuarioPeer::$fieldNames[$type];
     }
 
     /**
@@ -204,12 +131,12 @@ abstract class BaseReservaPeer
      *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
      * </code>
      * @param      string $alias The alias for the current table.
-     * @param      string $column The column name for current table. (i.e. ReservaPeer::COLUMN_NAME).
+     * @param      string $column The column name for current table. (i.e. UsuarioPeer::COLUMN_NAME).
      * @return string
      */
     public static function alias($alias, $column)
     {
-        return str_replace(ReservaPeer::TABLE_NAME.'.', $alias.'.', $column);
+        return str_replace(UsuarioPeer::TABLE_NAME.'.', $alias.'.', $column);
     }
 
     /**
@@ -227,19 +154,13 @@ abstract class BaseReservaPeer
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(ReservaPeer::ID);
-            $criteria->addSelectColumn(ReservaPeer::CLIENTE_ID);
-            $criteria->addSelectColumn(ReservaPeer::FECHA);
-            $criteria->addSelectColumn(ReservaPeer::HORA);
-            $criteria->addSelectColumn(ReservaPeer::VIGENTE);
-            $criteria->addSelectColumn(ReservaPeer::SENIA);
+            $criteria->addSelectColumn(UsuarioPeer::ID);
+            $criteria->addSelectColumn(UsuarioPeer::USUARIO);
+            $criteria->addSelectColumn(UsuarioPeer::CONTRASENA);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.cliente_id');
-            $criteria->addSelectColumn($alias . '.fecha');
-            $criteria->addSelectColumn($alias . '.hora');
-            $criteria->addSelectColumn($alias . '.vigente');
-            $criteria->addSelectColumn($alias . '.senia');
+            $criteria->addSelectColumn($alias . '.usuario');
+            $criteria->addSelectColumn($alias . '.contrasena');
         }
     }
 
@@ -259,26 +180,26 @@ abstract class BaseReservaPeer
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(ReservaPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(UsuarioPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            ReservaPeer::addSelectColumns($criteria);
+            UsuarioPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME); // Set the correct dbName
+        $criteria->setDbName(UsuarioPeer::DATABASE_NAME); // Set the correct dbName
 
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
         // symfony_behaviors behavior
         foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
         {
-          call_user_func($sf_hook, 'BaseReservaPeer', $criteria, $con);
+          call_user_func($sf_hook, 'BaseUsuarioPeer', $criteria, $con);
         }
 
         // BasePeer returns a PDOStatement
@@ -298,7 +219,7 @@ abstract class BaseReservaPeer
      *
      * @param      Criteria $criteria object used to create the SELECT statement.
      * @param      PropelPDO $con
-     * @return                 Reserva
+     * @return                 Usuario
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -306,7 +227,7 @@ abstract class BaseReservaPeer
     {
         $critcopy = clone $criteria;
         $critcopy->setLimit(1);
-        $objects = ReservaPeer::doSelect($critcopy, $con);
+        $objects = UsuarioPeer::doSelect($critcopy, $con);
         if ($objects) {
             return $objects[0];
         }
@@ -324,7 +245,7 @@ abstract class BaseReservaPeer
      */
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-        return ReservaPeer::populateObjects(ReservaPeer::doSelectStmt($criteria, $con));
+        return UsuarioPeer::populateObjects(UsuarioPeer::doSelectStmt($criteria, $con));
     }
     /**
      * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -342,20 +263,20 @@ abstract class BaseReservaPeer
     public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         if (!$criteria->hasSelectClause()) {
             $criteria = clone $criteria;
-            ReservaPeer::addSelectColumns($criteria);
+            UsuarioPeer::addSelectColumns($criteria);
         }
 
         // Set the correct dbName
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME);
+        $criteria->setDbName(UsuarioPeer::DATABASE_NAME);
         // symfony_behaviors behavior
         foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
         {
-          call_user_func($sf_hook, 'BaseReservaPeer', $criteria, $con);
+          call_user_func($sf_hook, 'BaseUsuarioPeer', $criteria, $con);
         }
 
 
@@ -371,7 +292,7 @@ abstract class BaseReservaPeer
      * to the cache in order to ensure that the same objects are always returned by doSelect*()
      * and retrieveByPK*() calls.
      *
-     * @param      Reserva $obj A Reserva object.
+     * @param      Usuario $obj A Usuario object.
      * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
      */
     public static function addInstanceToPool($obj, $key = null)
@@ -380,7 +301,7 @@ abstract class BaseReservaPeer
             if ($key === null) {
                 $key = (string) $obj->getId();
             } // if key === null
-            ReservaPeer::$instances[$key] = $obj;
+            UsuarioPeer::$instances[$key] = $obj;
         }
     }
 
@@ -392,7 +313,7 @@ abstract class BaseReservaPeer
      * methods in your stub classes -- you may need to explicitly remove objects
      * from the cache in order to prevent returning objects that no longer exist.
      *
-     * @param      mixed $value A Reserva object or a primary key value.
+     * @param      mixed $value A Usuario object or a primary key value.
      *
      * @return void
      * @throws PropelException - if the value is invalid.
@@ -400,17 +321,17 @@ abstract class BaseReservaPeer
     public static function removeInstanceFromPool($value)
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
-            if (is_object($value) && $value instanceof Reserva) {
+            if (is_object($value) && $value instanceof Usuario) {
                 $key = (string) $value->getId();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
             } else {
-                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Reserva object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Usuario object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
             }
 
-            unset(ReservaPeer::$instances[$key]);
+            unset(UsuarioPeer::$instances[$key]);
         }
     } // removeInstanceFromPool()
 
@@ -421,14 +342,14 @@ abstract class BaseReservaPeer
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
      * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-     * @return   Reserva Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+     * @return   Usuario Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
      * @see        getPrimaryKeyHash()
      */
     public static function getInstanceFromPool($key)
     {
         if (Propel::isInstancePoolingEnabled()) {
-            if (isset(ReservaPeer::$instances[$key])) {
-                return ReservaPeer::$instances[$key];
+            if (isset(UsuarioPeer::$instances[$key])) {
+                return UsuarioPeer::$instances[$key];
             }
         }
 
@@ -444,16 +365,16 @@ abstract class BaseReservaPeer
     {
       if ($and_clear_all_references)
       {
-        foreach (ReservaPeer::$instances as $instance)
+        foreach (UsuarioPeer::$instances as $instance)
         {
           $instance->clearAllReferences(true);
         }
       }
-        ReservaPeer::$instances = array();
+        UsuarioPeer::$instances = array();
     }
 
     /**
-     * Method to invalidate the instance pool of all tables related to reserva
+     * Method to invalidate the instance pool of all tables related to usuario
      * by a foreign key with ON DELETE CASCADE
      */
     public static function clearRelatedInstancePool()
@@ -507,11 +428,11 @@ abstract class BaseReservaPeer
         $results = array();
 
         // set the class once to avoid overhead in the loop
-        $cls = ReservaPeer::getOMClass();
+        $cls = UsuarioPeer::getOMClass();
         // populate the object(s)
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key = ReservaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj = ReservaPeer::getInstanceFromPool($key))) {
+            $key = UsuarioPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj = UsuarioPeer::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
@@ -520,7 +441,7 @@ abstract class BaseReservaPeer
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                ReservaPeer::addInstanceToPool($obj, $key);
+                UsuarioPeer::addInstanceToPool($obj, $key);
             } // if key exists
         }
         $stmt->closeCursor();
@@ -534,286 +455,24 @@ abstract class BaseReservaPeer
      * @param      int $startcol The 0-based offset for reading from the resultset row.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
-     * @return array (Reserva object, last column rank)
+     * @return array (Usuario object, last column rank)
      */
     public static function populateObject($row, $startcol = 0)
     {
-        $key = ReservaPeer::getPrimaryKeyHashFromRow($row, $startcol);
-        if (null !== ($obj = ReservaPeer::getInstanceFromPool($key))) {
+        $key = UsuarioPeer::getPrimaryKeyHashFromRow($row, $startcol);
+        if (null !== ($obj = UsuarioPeer::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $startcol, true); // rehydrate
-            $col = $startcol + ReservaPeer::NUM_HYDRATE_COLUMNS;
+            $col = $startcol + UsuarioPeer::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = ReservaPeer::OM_CLASS;
+            $cls = UsuarioPeer::OM_CLASS;
             $obj = new $cls();
             $col = $obj->hydrate($row, $startcol);
-            ReservaPeer::addInstanceToPool($obj, $key);
+            UsuarioPeer::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining the related Cliente table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinCliente(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(ReservaPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            ReservaPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(ReservaPeer::CLIENTE_ID, ClientePeer::ID, $join_behavior);
-
-        // symfony_behaviors behavior
-        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-        {
-          call_user_func($sf_hook, 'BaseReservaPeer', $criteria, $con);
-        }
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
-     * Selects a collection of Reserva objects pre-filled with their Cliente objects.
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Reserva objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinCliente(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(ReservaPeer::DATABASE_NAME);
-        }
-
-        ReservaPeer::addSelectColumns($criteria);
-        $startcol = ReservaPeer::NUM_HYDRATE_COLUMNS;
-        ClientePeer::addSelectColumns($criteria);
-
-        $criteria->addJoin(ReservaPeer::CLIENTE_ID, ClientePeer::ID, $join_behavior);
-
-        // symfony_behaviors behavior
-        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-        {
-          call_user_func($sf_hook, 'BaseReservaPeer', $criteria, $con);
-        }
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = ReservaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = ReservaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-
-                $cls = ReservaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                ReservaPeer::addInstanceToPool($obj1, $key1);
-            } // if $obj1 already loaded
-
-            $key2 = ClientePeer::getPrimaryKeyHashFromRow($row, $startcol);
-            if ($key2 !== null) {
-                $obj2 = ClientePeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = ClientePeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol);
-                    ClientePeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 already loaded
-
-                // Add the $obj1 (Reserva) to $obj2 (Cliente)
-                $obj2->addReserva($obj1);
-
-            } // if joined row was not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining all related tables
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAll(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(ReservaPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            ReservaPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(ReservaPeer::CLIENTE_ID, ClientePeer::ID, $join_behavior);
-
-        // symfony_behaviors behavior
-        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-        {
-          call_user_func($sf_hook, 'BaseReservaPeer', $criteria, $con);
-        }
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-    /**
-     * Selects a collection of Reserva objects pre-filled with all related objects.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Reserva objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAll(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(ReservaPeer::DATABASE_NAME);
-        }
-
-        ReservaPeer::addSelectColumns($criteria);
-        $startcol2 = ReservaPeer::NUM_HYDRATE_COLUMNS;
-
-        ClientePeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + ClientePeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(ReservaPeer::CLIENTE_ID, ClientePeer::ID, $join_behavior);
-
-        // symfony_behaviors behavior
-        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-        {
-          call_user_func($sf_hook, 'BaseReservaPeer', $criteria, $con);
-        }
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = ReservaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = ReservaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = ReservaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                ReservaPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-            // Add objects for joined Cliente rows
-
-            $key2 = ClientePeer::getPrimaryKeyHashFromRow($row, $startcol2);
-            if ($key2 !== null) {
-                $obj2 = ClientePeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = ClientePeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    ClientePeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 loaded
-
-                // Add the $obj1 (Reserva) to the collection in $obj2 (Cliente)
-                $obj2->addReserva($obj1);
-            } // if joined row not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
     }
 
     /**
@@ -825,7 +484,7 @@ abstract class BaseReservaPeer
      */
     public static function getTableMap()
     {
-        return Propel::getDatabaseMap(ReservaPeer::DATABASE_NAME)->getTable(ReservaPeer::TABLE_NAME);
+        return Propel::getDatabaseMap(UsuarioPeer::DATABASE_NAME)->getTable(UsuarioPeer::TABLE_NAME);
     }
 
     /**
@@ -833,9 +492,9 @@ abstract class BaseReservaPeer
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getDatabaseMap(BaseReservaPeer::DATABASE_NAME);
-      if (!$dbMap->hasTable(BaseReservaPeer::TABLE_NAME)) {
-        $dbMap->addTableObject(new ReservaTableMap());
+      $dbMap = Propel::getDatabaseMap(BaseUsuarioPeer::DATABASE_NAME);
+      if (!$dbMap->hasTable(BaseUsuarioPeer::TABLE_NAME)) {
+        $dbMap->addTableObject(new UsuarioTableMap());
       }
     }
 
@@ -847,13 +506,13 @@ abstract class BaseReservaPeer
      */
     public static function getOMClass($row = 0, $colnum = 0)
     {
-        return ReservaPeer::OM_CLASS;
+        return UsuarioPeer::OM_CLASS;
     }
 
     /**
-     * Performs an INSERT on the database, given a Reserva or Criteria object.
+     * Performs an INSERT on the database, given a Usuario or Criteria object.
      *
-     * @param      mixed $values Criteria or Reserva object containing data that is used to create the INSERT statement.
+     * @param      mixed $values Criteria or Usuario object containing data that is used to create the INSERT statement.
      * @param      PropelPDO $con the PropelPDO connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -862,22 +521,22 @@ abstract class BaseReservaPeer
     public static function doInsert($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
         } else {
-            $criteria = $values->buildCriteria(); // build Criteria from Reserva object
+            $criteria = $values->buildCriteria(); // build Criteria from Usuario object
         }
 
-        if ($criteria->containsKey(ReservaPeer::ID) && $criteria->keyContainsValue(ReservaPeer::ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ReservaPeer::ID.')');
+        if ($criteria->containsKey(UsuarioPeer::ID) && $criteria->keyContainsValue(UsuarioPeer::ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.UsuarioPeer::ID.')');
         }
 
 
         // Set the correct dbName
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME);
+        $criteria->setDbName(UsuarioPeer::DATABASE_NAME);
 
         try {
             // use transaction because $criteria could contain info
@@ -894,9 +553,9 @@ abstract class BaseReservaPeer
     }
 
     /**
-     * Performs an UPDATE on the database, given a Reserva or Criteria object.
+     * Performs an UPDATE on the database, given a Usuario or Criteria object.
      *
-     * @param      mixed $values Criteria or Reserva object containing data that is used to create the UPDATE statement.
+     * @param      mixed $values Criteria or Usuario object containing data that is used to create the UPDATE statement.
      * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
      * @return int             The number of affected rows (if supported by underlying database driver).
      * @throws PropelException Any exceptions caught during processing will be
@@ -905,35 +564,35 @@ abstract class BaseReservaPeer
     public static function doUpdate($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
-        $selectCriteria = new Criteria(ReservaPeer::DATABASE_NAME);
+        $selectCriteria = new Criteria(UsuarioPeer::DATABASE_NAME);
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(ReservaPeer::ID);
-            $value = $criteria->remove(ReservaPeer::ID);
+            $comparison = $criteria->getComparison(UsuarioPeer::ID);
+            $value = $criteria->remove(UsuarioPeer::ID);
             if ($value) {
-                $selectCriteria->add(ReservaPeer::ID, $value, $comparison);
+                $selectCriteria->add(UsuarioPeer::ID, $value, $comparison);
             } else {
-                $selectCriteria->setPrimaryTableName(ReservaPeer::TABLE_NAME);
+                $selectCriteria->setPrimaryTableName(UsuarioPeer::TABLE_NAME);
             }
 
-        } else { // $values is Reserva object
+        } else { // $values is Usuario object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
         }
 
         // set the correct dbName
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME);
+        $criteria->setDbName(UsuarioPeer::DATABASE_NAME);
 
         return BasePeer::doUpdate($selectCriteria, $criteria, $con);
     }
 
     /**
-     * Deletes all rows from the reserva table.
+     * Deletes all rows from the usuario table.
      *
      * @param      PropelPDO $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).
@@ -942,19 +601,19 @@ abstract class BaseReservaPeer
     public static function doDeleteAll(PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
         $affectedRows = 0; // initialize var to track total num of affected rows
         try {
             // use transaction because $criteria could contain info
             // for more than one table or we could emulating ON DELETE CASCADE, etc.
             $con->beginTransaction();
-            $affectedRows += BasePeer::doDeleteAll(ReservaPeer::TABLE_NAME, $con, ReservaPeer::DATABASE_NAME);
+            $affectedRows += BasePeer::doDeleteAll(UsuarioPeer::TABLE_NAME, $con, UsuarioPeer::DATABASE_NAME);
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            ReservaPeer::clearInstancePool();
-            ReservaPeer::clearRelatedInstancePool();
+            UsuarioPeer::clearInstancePool();
+            UsuarioPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -965,9 +624,9 @@ abstract class BaseReservaPeer
     }
 
     /**
-     * Performs a DELETE on the database, given a Reserva or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Usuario or Criteria object OR a primary key value.
      *
-     * @param      mixed $values Criteria or Reserva object or primary key or array of primary keys
+     * @param      mixed $values Criteria or Usuario object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param      PropelPDO $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -978,32 +637,32 @@ abstract class BaseReservaPeer
      public static function doDelete($values, PropelPDO $con = null)
      {
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             // invalidate the cache for all objects of this type, since we have no
             // way of knowing (without running a query) what objects should be invalidated
             // from the cache based on this Criteria.
-            ReservaPeer::clearInstancePool();
+            UsuarioPeer::clearInstancePool();
             // rename for clarity
             $criteria = clone $values;
-        } elseif ($values instanceof Reserva) { // it's a model object
+        } elseif ($values instanceof Usuario) { // it's a model object
             // invalidate the cache for this single object
-            ReservaPeer::removeInstanceFromPool($values);
+            UsuarioPeer::removeInstanceFromPool($values);
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(ReservaPeer::DATABASE_NAME);
-            $criteria->add(ReservaPeer::ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(UsuarioPeer::DATABASE_NAME);
+            $criteria->add(UsuarioPeer::ID, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
-                ReservaPeer::removeInstanceFromPool($singleval);
+                UsuarioPeer::removeInstanceFromPool($singleval);
             }
         }
 
         // Set the correct dbName
-        $criteria->setDbName(ReservaPeer::DATABASE_NAME);
+        $criteria->setDbName(UsuarioPeer::DATABASE_NAME);
 
         $affectedRows = 0; // initialize var to track total num of affected rows
 
@@ -1013,7 +672,7 @@ abstract class BaseReservaPeer
             $con->beginTransaction();
 
             $affectedRows += BasePeer::doDelete($criteria, $con);
-            ReservaPeer::clearRelatedInstancePool();
+            UsuarioPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -1024,13 +683,13 @@ abstract class BaseReservaPeer
     }
 
     /**
-     * Validates all modified columns of given Reserva object.
+     * Validates all modified columns of given Usuario object.
      * If parameter $columns is either a single column name or an array of column names
      * than only those columns are validated.
      *
      * NOTICE: This does not apply to primary or foreign keys for now.
      *
-     * @param      Reserva $obj The object to validate.
+     * @param      Usuario $obj The object to validate.
      * @param      mixed $cols Column name or array of column names.
      *
      * @return mixed TRUE if all columns are valid or the error message of the first invalid column.
@@ -1040,8 +699,8 @@ abstract class BaseReservaPeer
         $columns = array();
 
         if ($cols) {
-            $dbMap = Propel::getDatabaseMap(ReservaPeer::DATABASE_NAME);
-            $tableMap = $dbMap->getTable(ReservaPeer::TABLE_NAME);
+            $dbMap = Propel::getDatabaseMap(UsuarioPeer::DATABASE_NAME);
+            $tableMap = $dbMap->getTable(UsuarioPeer::TABLE_NAME);
 
             if (! is_array($cols)) {
                 $cols = array($cols);
@@ -1057,7 +716,7 @@ abstract class BaseReservaPeer
 
         }
 
-        return BasePeer::doValidate(ReservaPeer::DATABASE_NAME, ReservaPeer::TABLE_NAME, $columns);
+        return BasePeer::doValidate(UsuarioPeer::DATABASE_NAME, UsuarioPeer::TABLE_NAME, $columns);
     }
 
     /**
@@ -1065,23 +724,23 @@ abstract class BaseReservaPeer
      *
      * @param      int $pk the primary key.
      * @param      PropelPDO $con the connection to use
-     * @return Reserva
+     * @return Usuario
      */
     public static function retrieveByPK($pk, PropelPDO $con = null)
     {
 
-        if (null !== ($obj = ReservaPeer::getInstanceFromPool((string) $pk))) {
+        if (null !== ($obj = UsuarioPeer::getInstanceFromPool((string) $pk))) {
             return $obj;
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria = new Criteria(ReservaPeer::DATABASE_NAME);
-        $criteria->add(ReservaPeer::ID, $pk);
+        $criteria = new Criteria(UsuarioPeer::DATABASE_NAME);
+        $criteria->add(UsuarioPeer::ID, $pk);
 
-        $v = ReservaPeer::doSelect($criteria, $con);
+        $v = UsuarioPeer::doSelect($criteria, $con);
 
         return !empty($v) > 0 ? $v[0] : null;
     }
@@ -1091,23 +750,23 @@ abstract class BaseReservaPeer
      *
      * @param      array $pks List of primary keys
      * @param      PropelPDO $con the connection to use
-     * @return Reserva[]
+     * @return Usuario[]
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
     public static function retrieveByPKs($pks, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(ReservaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(UsuarioPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         $objs = null;
         if (empty($pks)) {
             $objs = array();
         } else {
-            $criteria = new Criteria(ReservaPeer::DATABASE_NAME);
-            $criteria->add(ReservaPeer::ID, $pks, Criteria::IN);
-            $objs = ReservaPeer::doSelect($criteria, $con);
+            $criteria = new Criteria(UsuarioPeer::DATABASE_NAME);
+            $criteria->add(UsuarioPeer::ID, $pks, Criteria::IN);
+            $objs = UsuarioPeer::doSelect($criteria, $con);
         }
 
         return $objs;
@@ -1122,7 +781,7 @@ abstract class BaseReservaPeer
      */
     static public function getUniqueColumnNames()
     {
-      return array();
+      return array(array('usuario'));
     }
 
     // symfony_behaviors behavior
@@ -1140,15 +799,15 @@ abstract class BaseReservaPeer
     {
       if (preg_match('/^do(Select|Count)(Join(All(Except)?)?|Stmt)?/', $method, $match))
       {
-        return sprintf('BaseReservaPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
+        return sprintf('BaseUsuarioPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
       }
 
       throw new LogicException(sprintf('Unrecognized function "%s"', $method));
     }
 
-} // BaseReservaPeer
+} // BaseUsuarioPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BaseReservaPeer::buildTableMap();
+BaseUsuarioPeer::buildTableMap();
 

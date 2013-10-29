@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'cliente' table.
+ * This class defines the structure of the 'usuario' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.lib.model.map
  */
-class ClienteTableMap extends TableMap
+class UsuarioTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'lib.model.map.ClienteTableMap';
+    const CLASS_NAME = 'lib.model.map.UsuarioTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,15 +32,15 @@ class ClienteTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('cliente');
-        $this->setPhpName('Cliente');
-        $this->setClassname('Cliente');
+        $this->setName('usuario');
+        $this->setPhpName('Usuario');
+        $this->setClassname('Usuario');
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('nombre', 'Nombre', 'VARCHAR', true, 20, null);
-        $this->addColumn('telefono', 'Telefono', 'VARCHAR', true, 20, null);
+        $this->addColumn('usuario', 'Usuario', 'VARCHAR', true, 20, null);
+        $this->addColumn('contrasena', 'Contrasena', 'VARCHAR', true, 40, null);
         // validators
     } // initialize()
 
@@ -49,7 +49,6 @@ class ClienteTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Reserva', 'Reserva', RelationMap::ONE_TO_MANY, array('id' => 'cliente_id', ), null, null, 'Reservas');
     } // buildRelations()
 
     /**
@@ -70,4 +69,4 @@ class ClienteTableMap extends TableMap
         );
     } // getBehaviors()
 
-} // ClienteTableMap
+} // UsuarioTableMap
