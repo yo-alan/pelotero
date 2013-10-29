@@ -1,16 +1,16 @@
 <div class="container">
-	<form method="POST" action="../web/home.php" class="form-inline">
+	<form method="POST" action="home" class="form-inline">
 		<label>Filtrar por:</label>
 		<div class="form-group">
 			<select name="filtro" class="form-control">
-				<option value="<?php echo "hoy"; ?>">Hoy</option>
-				<option value="<?php echo "semana"; ?>">Semana</option>
-				<option value="<?php echo "mes"; ?>">Mes</option>
+				<option value="hoy">Hoy</option>
+				<option value="semana">Semana</option>
+				<option value="mes">Mes</option>
 			</select>
 		</div>
 		<button type="submit" class="btn btn-default">Ver</button>
 	</form>
-	<?php if(isset($_reservas)): ?>
+	<?php if(isset($reservas)): ?>
 	<table class="table table-hover">
 		<tr class="success">
 			<th>Cliente</th>
@@ -20,7 +20,7 @@
 			<th>Seña</th>
 		</tr>
 		<?php
-			foreach($_reservas as $reserva):
+			foreach($reservas as $reserva):
 		?>
 		<tr>
 			<td><?php echo $reserva['nombre']; ?></td>

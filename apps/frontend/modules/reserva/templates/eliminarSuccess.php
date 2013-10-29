@@ -1,6 +1,6 @@
 <h3>Eliminar reserva:</h3>
 <div class="container" style="width: 40%">
-	<form method="POST" action="../web/eliminarReserva.php" role="form">
+	<form method="POST" action="eliminar" role="form">
 		<div class="form-group">
 			<input type="hidden" name="buscarReserva">
 		</div>

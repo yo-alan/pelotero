@@ -11,7 +11,7 @@
 	<body>
 		<header>
 			<div class="container">
-				<a href="home.php"><h1 style="color: green">PELOTERO S.A.</h1></a>
+				<a href="home"><h1 style="color: green">PELOTERO S.A.</h1></a>
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						<button class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
@@ -37,7 +37,7 @@
 			</div>
 			<div class="container">
 				<?php if(!isset($_SESSION['usuario'])): ?>
-				<form method="POST" action="../web/home.php" class="form-inline" role="form" style="float: right">
+				<form method="POST" action="home" class="form-inline" role="form" style="float: right">
 					<label>Registrate:</label>
 					<div class="form-group">
 						<input autofocus type="text" class="form-control" name="usuario" placeholder="Usuario">
@@ -48,7 +48,7 @@
 					<button type="submit" class="btn btn-default">Entrar</button>
 				</form>
 				<?php else: ?>
-				<p align="right"><a class="btn btn-primary" href="../web/home.php?codigo=salir">Cerrar sesión</a></p>
+				<p align="right"><a class="btn btn-primary" href="salir">Cerrar sesión</a></p>
 				<?php endif; ?>
 			</div>
 		</header>
