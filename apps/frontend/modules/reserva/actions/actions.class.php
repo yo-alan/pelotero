@@ -174,7 +174,7 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'POST'){
 		
-		if(!$request->getParameter('fecha') == null){
+		if($request->getParameter('fecha') != null){
 			$fecha = $request->getParameter('fecha');
 			
 			if(!empty($fecha)){
@@ -193,7 +193,7 @@ class reservaActions extends sfActions
 				
 			}
 		}
-		else if(!$request->getParameter('reserva') == null){
+		else if($request->getParameter('reserva') != null){
 			
 			$this->exito = false;
 			$this->error = true;

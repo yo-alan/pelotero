@@ -18,7 +18,7 @@
 							Reservas <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="agregar">Agregar reserva</a></li>
+							<li><a href="<?php echo url_for("reserva/agregar"); ?>">Agregar reserva</a></li>
 							<li><a href="eliminar">Eliminar reserva</a></li>
 							<li><a href="editar">Editar reserva</a></li>
 						</ul>
