@@ -1,7 +1,7 @@
 <script>
 $(document).ready(
 function(){
-  $('div.alert').delay(5000).fadeOut(2000);
+  $('div.alert').delay(3000).fadeOut(2000);
 });
 </script>
 

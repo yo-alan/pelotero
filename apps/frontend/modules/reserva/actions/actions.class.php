@@ -21,7 +21,7 @@ class reservaActions extends sfActions
     $this->forward('default', 'module');
   }
   
-  private function executelogIn(sfWebRequest $request)
+  public function executeLogIn(sfWebRequest $request)
   {
 	
 	
@@ -174,8 +174,44 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'POST'){
 		
-		$request-getParameter('id');
-		
+		if(!$request->getParameter('fecha') == null){
+			$fecha = $request->getParameter('fecha');
+			
+			if(!empty($fecha)){
+				
+				$fecha = explode("-", $request->getParameter('fecha'));
+				
+				if(checkdate($fecha[1], $fecha[2], $fecha[0])){
+					
+					$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
+					
+					$this->reservas = ReservaQuery::create()
+						->filterByFecha($fecha)
+						->find();
+					
+				}
+				
+			}
+		}
+		else if(!$request->getParameter('reserva') == null){
+			
+			$this->exito = false;
+			$this->error = true;
+			
+			if(ctype_digit($request->getParameter('reserva'))){
+				
+				$id = $request->getParameter('reserva');
+				
+				$reservaParaEliminar = ReservaQuery::create()
+					->findPK($id);
+				
+				$reservaParaEliminar->delete();
+				
+				$this->exito = true;
+				$this->error = false;
+				
+			}
+		}
 		
 	}
 	
@@ -187,6 +223,49 @@ class reservaActions extends sfActions
   
   public function executeEditar(sfWebRequest $request)
   {
+	if($request->getMethod() == 'POST'){
+		
+		if(!$request->getParameter('fecha') == null){
+			$fecha = $request->getParameter('fecha');
+			
+			if(!empty($fecha)){
+				
+				$fecha = explode("-", $request->getParameter('fecha'));
+				
+				if(checkdate($fecha[1], $fecha[2], $fecha[0])){
+					
+					$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
+					
+					$this->reservas = ReservaQuery::create()
+						->filterByFecha($fecha)
+						->find();
+					
+				}
+				
+			}
+		}
+		else if(!$request->getParameter('reserva') == null){
+			
+			$this->exito = false;
+			$this->error = true;
+			
+			if(ctype_digit($request->getParameter('reserva'))){
+				
+				$id = $request->getParameter('reserva');
+				
+				$reservaParaEditar = ReservaQuery::create()
+					->findPK($id);
+				
+				
+				
+				
+				$this->exito = true;
+				$this->error = false;
+				
+			}
+		}
+	}
+	
 	$respuesta = $this->getResponse();
 	
 	$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
