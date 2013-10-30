@@ -21,6 +21,14 @@ class reservaActions extends sfActions
     $this->forward('default', 'module');
   }
   
+  private function executelogIn(sfWebRequest $request)
+  {
+	
+	
+	
+	$this->redirect($request->getPathInfo());
+  }
+  
   public function executeHome(sfWebRequest $request)
   {
 	if($request->getMethod() == "POST"){
