@@ -109,22 +109,21 @@ class reservaActions extends sfActions
 		$cliente->validar($request->getParameter('cliente'));
 		
 		if($cliente->esValido()){
-			try{
-				$cliente->save();
-			} catch(PropelException $e){
-				$todoCorrecto = false;
-				$this->getUser()->setFlash('clienteError', "Cliente: ". $e->getMessage());
+			
+			if($cliente->existe()){
+				$cliente = ClienteQuery::create()
+					->filterByNombre($cliente->getNombre())
+					->filterByTelefono($cliente->getTelefono())
+					->findOne();
 			}
-		}
-		
-		if($cliente->existe()){
-			
-			$cliente = ClienteQuery::create()
-				->filterByNombre($cliente->getNombre())
-				->filterByTelefono($cliente->getTelefono())
-				->findOne();
-			
-			echo $cliente->getNombre();
+			else{
+				try{
+					$cliente->save();
+				} catch(PropelException $e){
+					$todoCorrecto = false;
+					$this->getUser()->setFlash('clienteError', "Cliente: ". $e->getMessage());
+				}
+			}
 			
 			//Reserva nueva a ser insertada.
 			$reserva = new Reserva();
@@ -166,15 +165,10 @@ class reservaActions extends sfActions
 					$this->reservas = ReservaQuery::create()
 						->filterByFecha($fecha)
 						->find();
-					
 				}
-				
 			}
 		}
 		else if($request->getParameter('reserva') != null){
-			
-			$this->exito = false;
-			$this->error = true;
 			
 			if(ctype_digit($request->getParameter('reserva'))){
 				
@@ -185,12 +179,9 @@ class reservaActions extends sfActions
 				
 				$reservaParaEliminar->delete();
 				
-				$this->exito = true;
-				$this->error = false;
-				
+				//ACA TENES QUE ENVIAR EL PARTIAL EXITOSO.
 			}
 		}
-		
 	}
 	
 	$respuesta = $this->getResponse();
