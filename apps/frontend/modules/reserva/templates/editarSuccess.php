@@ -1,11 +1,14 @@
-<center><?php if(isset($exito) && $exito) include_partial('reserva/exito'); ?></center>
-<center><?php if(isset($error) && $error) include_partial('reserva/error'); ?></center>
+<center><?php if(isset($mensaje) && $mensaje)
+				include_partial('reserva/exito');
+				else
+					include_partial('reserva/error'); 
+?></center>
 <h3>Editar reserva:</h3>
 <div class="container" style="width: 40%">
 	<form method="POST" action="editar">
 		<label>Fecha:</label>
 		<div class="form-group">
-			<input class="form-control" type="date" name="fecha">
+			<input autofocus class="form-control" type="date" name="fecha">
 		</div>
 		<button type="submit" class="btn btn-default">Buscar</button>
 	</form>

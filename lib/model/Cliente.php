@@ -15,4 +15,76 @@
  */
 class Cliente extends BaseCliente
 {
+	private $valido = false;
+	private $existe = false;
+	
+	public function validar($datos){
+		
+		$nombreCorrecto = true;
+		$nombre = "";
+		
+		if(strpos($datos['nombre'], ' ') == false){
+			
+			if(ctype_alpha($datos['nombre']))
+				$nombre = ucfirst($datos['nombre']);
+			else
+				$nombreCorrecto = false;
+		}
+		else{
+			$palabras = explode(' ', $datos['nombre']);
+			
+			foreach($palabras as $palabra){
+				if(ctype_alpha($palabra))
+					$nombre = empty($nombre) ? ucfirst($palabra) : $nombre. " ". ucfirst($palabra);
+				else
+					$nombreCorrecto = false;
+			}
+		}
+		
+		$errorNombre = false;
+		$errorTelefono = false;
+		
+		if(!$nombreCorrecto){
+			$errorNombre = true;
+		}
+		if(!ctype_digit($datos['telefono'])){
+			$errorTelefono = true;
+		}
+		
+		if($errorNombre == false && $errorTelefono == false){
+			
+			$nombre = $nombre;
+			$telefono = $datos['telefono'];
+			
+			$this->setNombre($nombre)
+				->setTelefono($telefono);
+			
+			//~ if($this->existe())
+				//~ $this->valido = false;
+			//~ else
+				$this->valido = true;
+		}
+	}
+	
+	public function esValido(){
+		
+		return $this->valido;
+	}
+	
+	public function existe(){
+		
+		$clientes = ClienteQuery::create()
+				->filterByNombre($this->getNombre())
+				->filterByTelefono($this->getTelefono())
+				->find();
+		
+		foreach($clientes as $cliente){
+			
+			if($cliente->getNombre() == $this->getNombre() && $cliente->getTelefono() == $this->getTelefono())
+				return true;
+			
+		}
+		
+		return false;
+	}
 }

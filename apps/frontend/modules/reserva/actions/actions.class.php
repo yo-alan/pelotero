@@ -101,34 +101,47 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'POST'){
 		
-		$cliente = ClienteQuery::create()
-			->validar($request->getParameter('cliente'));
+		$todoCorrecto = true;
+		
+		//Cliente nuevo a ser insertado.
+		$cliente = new Cliente();
+		
+		$cliente->validar($request->getParameter('cliente'));
 		
 		if($cliente->esValido()){
-			
 			try{
 				$cliente->save();
 			} catch(PropelException $e){
-				$this->error = $e->getMessage();
+				$todoCorrecto = false;
+				$this->getUser()->setFlash('clienteError', "Cliente: ". $e->getMessage());
 			}
-			
 		}
 		
-		$reserva = ReservaQuery::create()
-			->setCliente($cliente)
-			->validar($request->getParameter('reserva'));
-		
-		if($reserva->esValido()){
+		if($cliente->existe()){
 			
-			try{
-				$reserva->save();
-			} catch(PropelException $e){
-				$this->error = $e->getMessage();
+			$cliente = ClienteQuery::create()
+				->filterByNombre($cliente->getNombre())
+				->filterByTelefono($cliente->getTelefono())
+				->findOne();
+			
+			echo $cliente->getNombre();
+			
+			//Reserva nueva a ser insertada.
+			$reserva = new Reserva();
+			$reserva->setCliente($cliente)
+					->validar($request->getParameter('reserva'));
+			
+			if($reserva->esValido()){
+				try{
+					$reserva->save();
+				} catch(PropelException $e){
+					$todoCorrecto = false;
+					$this->getUser()->setFlash('reservaError', "Reserva: ". $e->getMessage());
+				}
 			}
-			
-			
+			if($todoCorrecto)
+				$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
 		}
-		
 	}
 	
 	$respuesta = $this->getResponse();
