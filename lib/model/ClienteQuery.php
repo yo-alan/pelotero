@@ -15,4 +15,49 @@
  */
 class ClienteQuery extends BaseClienteQuery
 {
+	private $valido = false;
+	
+	public function validar($datos){
+		
+		$palabras = explode(' ', $datos['nombre']);
+		
+		$nombreCorrecto = true;
+		
+		$nombre = "";
+		
+		foreach($palabras as $palabra){
+			if(ctype_alpha($palabra))
+				$nombre = empty($nombre) ? ucfirst($palabra) : $nombre. " ". ucfirst($palabra);
+			else
+				$nombreCorrecto = false;
+		}
+		
+		$errorNombre = false;
+		$errorTelefono = false;
+		
+		if(!$nombreCorrecto){
+			$errorNombre = true;
+		}
+		if(!ctype_digit($datos['telefono'])){
+			$errorTelefono = true;
+		}
+		
+		if($errorNombre == false && $errorTelefono == false){
+			$nombre = $nombre;
+			$telefono = $datos['telefono'];
+			
+			$this->setNombre($nombre)
+				->setTelefono($telefono);
+			
+			$this->valido = true;
+			
+			return $this;
+		}
+		
+	}
+	
+	public function esValido(){
+		
+		return $this->valido;
+	}
 }

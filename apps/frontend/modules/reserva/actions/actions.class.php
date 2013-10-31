@@ -101,69 +101,34 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'POST'){
 		
-		$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
-		$fecha = explode('-', $request->getParameter('fecha'));
-		$palabras = explode(' ', $request->getParameter('nombre'));
+		$cliente = ClienteQuery::create()
+			->validar($request->getParameter('cliente'));
 		
-		$nombreCorrecto = true;
-		
-		$nombre = "";
-		
-		foreach($palabras as $palabra){
-			if(ctype_alpha($palabra))
-				$nombre = empty($nombre) ? ucfirst($palabra) : $nombre. " ". ucfirst($palabra);
-			else
-				$nombreCorrecto = false;
-		}
-		
-		$this->errorNombre = false;
-		$this->errorTelefono = false;
-		$this->errorSenia = false;
-		$this->errorFecha = false;
-		$this->errorHora = false;
-		
-		if(!$nombreCorrecto){
-			$this->errorNombre = true;
-		}
-		if(!ctype_digit($request->getParameter('telefono'))){
-			$this->errorTelefono = true;
-		}
-		if(!ctype_digit($request->getParameter('senia'))){
-			$this->errorSenia = true;
-		}
-		if(!(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
-			$this->errorFecha = true;
-		}
-		if(!in_array($request->getParameter('hora'), $horasAceptadas)){
-			$this->errorHora = true;
-		}
-		
-		$this->exito = false;
-		$this->error = true;
-		
-		if($this->errorNombre == false && $this->errorTelefono == false && $this->errorSenia == false && $this->errorFecha == false && $this->errorHora == false){
-			$nombre = $nombre;
-			$telefono = $request->getParameter('telefono');
-			$senia = $request->getParameter('senia');
-			$fecha = $request->getParameter('fecha');
-			$hora = $request->getParameter('hora');
+		if($cliente->esValido()){
 			
-			$cliente = new Cliente();
+			try{
+				$cliente->save();
+			} catch(PropelException $e){
+				$this->error = $e->getMessage();
+			}
 			
-			$cliente->setNombre($nombre)
-					->setTelefono($telefono)
-					->save();
-			
-			$reserva = new Reserva();
-			$reserva->setCliente($cliente)
-					->setSenia($senia)
-					->setFecha($fecha)
-					->setHora($hora)
-					->save();
-					
-			$this->exito = true;
-			$this->error = false;
 		}
+		
+		$reserva = ReservaQuery::create()
+			->setCliente($cliente)
+			->validar($request->getParameter('reserva'));
+		
+		if($reserva->esValido()){
+			
+			try{
+				$reserva->save();
+			} catch(PropelException $e){
+				$this->error = $e->getMessage();
+			}
+			
+			
+		}
+		
 	}
 	
 	$respuesta = $this->getResponse();

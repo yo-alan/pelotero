@@ -1,36 +1,37 @@
-<center><?php if(isset($exito) && $exito) include_partial('reserva/exito'); ?></center>
-<center><?php if(isset($error) && $error) include_partial('reserva/error'); ?></center>
+<center><?php if(isset($men) && $mensaje) include_partial('reserva/exito'); ?>
+	
+</center>
 <div class="container" style="width: 40%">
 	<h3>Agregar reserva:</h3>
 	<form method="POST" action="agregar" class="form-horizontal" role="form">
 		<div class="form-group<?php echo $errorNombre ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Nombre:</label>
 			<div class="col-lg-10">
-				<input autofocus type="text" class="form-control" name="nombre" placeholder="Nombre del cliente">
+				<input autofocus type="text" class="form-control" name="cliente[nombre]" placeholder="Nombre del cliente">
 			</div>
 		</div>
 		<div class="form-group<?php echo $errorTelefono ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Telefono:</label>
 			<div class="col-lg-10">
-				<input type="text" class="form-control" name="telefono" placeholder="Telefono del cliente">
+				<input type="text" class="form-control" name="cliente[telefono]" placeholder="Telefono del cliente">
 			</div>
 		</div>
 		<div class="form-group<?php echo $errorSenia ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Seña:</label>
 			<div class="col-lg-10">
-				<input type="text" class="form-control" name="senia" placeholder="Monto de la seña">
+				<input type="text" class="form-control" name="reserva[senia]" placeholder="Monto de la seña">
 			</div>
 		</div>
 		<div class="form-group<?php echo $errorFecha ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Dia:</label>
 			<div class="col-lg-10">
-				<input type="date" class="form-control" name="fecha" placeholder="Dia de la reserva">
+				<input type="date" class="form-control" name="reserva[fecha]" placeholder="Dia de la reserva">
 			</div>
 		</div>
 		<div class="form-group<?php echo $errorHora ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Hora:</label>
 			<div class="col-lg-10">
-				<select name="hora" class="form-control">
+				<select name="reserva[hora]" class="form-control">
 					<option value="9:00">9:00</option>
 					<option value="13:00">13:00</option>
 					<option value="15:00">15:00</option>
