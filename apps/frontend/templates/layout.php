@@ -11,27 +11,18 @@
 	<body>
 		<header>
 			<div class="container">
-				<a href="home"><h1 style="color: green">PELOTERO S.A.</h1></a>
+				<a href="<?php echo url_for("reserva/home"); ?>"><h1 style="color: green">PELOTERO S.A.</h1></a>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<button class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+						<a class="btn btn-primary" data-toggle="dropdown" data-hover="dropdown">
 							Reservas <span class="caret"></span>
-						</button>
+						</a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo url_for("reserva/agregar"); ?>">Agregar reserva</a></li>
-							<li><a href="eliminar">Eliminar reserva</a></li>
-							<li><a href="editar">Editar reserva</a></li>
+							<li><a href="<?php echo url_for("reserva/eliminar"); ?>">Eliminar reserva</a></li>
+							<li><a href="<?php echo url_for("reserva/editar"); ?>">Editar reserva</a></li>
 						</ul>
-					</div>
-					<div class="btn-group">
-						<button class="btn dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-							Clientes <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a href="../web/agregarReserva.php">Buscar cliente</a></li>
-							<li><a href="../web/eliminarReserva.php">Eliminar cliente</a></li>
-							<li><a href="../web/editarReserva.php">Editar cliente</a></li>
-						</ul>
+						<a class="btn btn-primary" href="<?php echo url_for("cliente/index"); ?>">Clientes</a>
 					</div>
 				</div>
 			</div>
@@ -45,7 +36,7 @@
 					<div class="form-group">
 						<input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
 					</div>
-					<button type="submit" class="btn btn-default">Entrar</button>
+					<button type="submit" class="btn btn-primary">Entrar</button>
 				</form>
 				<?php else: ?>
 				<p align="right"><a class="btn btn-primary" href="salir">Cerrar sesión</a></p>

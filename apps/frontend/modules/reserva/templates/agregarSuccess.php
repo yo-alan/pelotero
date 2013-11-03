@@ -1,14 +1,14 @@
 <?php if($sf_user->hasFlash('clienteError')): ?>
-		<center><?php include_partial('reserva/error', array('error' => $sf_user->getFlash('clienteError')));?></center>
+		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('clienteError')));?></center>
 <?php endif;?>
 <?php if($sf_user->hasFlash('reservaError')): ?>
-		<center><?php include_partial('reserva/error', array('error' => $sf_user->getFlash('reservaError')));?></center>
+		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('reservaError')));?></center>
 <?php endif;?>
 <?php if($sf_user->hasFlash('operacionExitosa')): ?>
-		<center><?php include_partial('reserva/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
+		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
 <?php endif;?>
 <div class="container" style="width: 40%">
-	<h3>Agregar reserva:</h3>
+	<h3><strong>Agregar reserva:</strong></h3>
 	<form method="POST" action="agregar" class="form-horizontal" role="form">
 		<div class="form-group<?php echo $errorNombre ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Nombre:</label>

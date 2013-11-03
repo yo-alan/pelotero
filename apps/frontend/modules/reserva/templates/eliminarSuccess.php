@@ -1,6 +1,10 @@
-<center><?php if(isset($exito) && $exito) include_partial('reserva/exito'); ?></center>
-<center><?php if(isset($error) && $error) include_partial('reserva/error'); ?></center>
-<h3>Eliminar reserva:</h3>
+<?php if($sf_user->hasFlash('reservaError')): ?>
+		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('reservaError')));?></center>
+<?php endif;?>
+<?php if($sf_user->hasFlash('operacionExitosa')): ?>
+		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
+<?php endif;?>
+<h3><strong>Eliminar reserva:</strong></h3>
 <div class="container" style="width: 40%">
 	<form method="POST" action="eliminar" role="form">
 		<label>Buscar reserva:</label>

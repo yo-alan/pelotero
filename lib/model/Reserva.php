@@ -22,21 +22,19 @@ class Reserva extends BaseReserva
 		$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
 		$fecha = explode('-', $datos['fecha']);
 		
-		$errorSenia = false;
-		$errorFecha = false;
-		$errorHora = false;
+		$todoCorrecto = true;
 		
 		if(!ctype_digit($datos['senia'])){
-			$errorSenia = true;
+			$todoCorrecto = false;
 		}
 		if(!(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
-			$errorFecha = true;
+			$todoCorrecto = false;
 		}
 		if(!in_array($datos['hora'], $horasAceptadas)){
-			$errorHora = true;
+			$todoCorrecto = false;
 		}
 		
-		if($errorSenia == false && $errorFecha == false && $errorHora == false){
+		if($todoCorrecto){
 			
 			$senia = $datos['senia'];
 			$fecha = $datos['fecha'];

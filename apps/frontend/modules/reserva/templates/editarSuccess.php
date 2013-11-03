@@ -1,11 +1,39 @@
-<center><?php if(isset($mensaje) && $mensaje)
-				include_partial('reserva/exito');
-				else
-					include_partial('reserva/error'); 
-?></center>
-<h3>Editar reserva:</h3>
+<?php if($sf_user->hasFlash('reservaError')): ?>
+		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('reservaError')));?></center>
+<?php endif;?>
+<?php if($sf_user->hasFlash('operacionExitosa')): ?>
+		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
+<?php endif;?>
+<h3><strong>Editar reserva:</strong></h3>
 <div class="container" style="width: 40%">
-	<form method="POST" action="editar">
+	<?php if(isset($reservaParaEditar)): ?>
+	<form method="POST" action="<?php url_for('reserva/editar') ?>">
+		<p class="lead text-left">Fecha:</p>
+		<div class="form-group">
+			<input class="form-control" type="date" name="fecha" value="<?php echo $reservaParaEditar->getFecha(); ?>">
+		</div>
+		<p class="lead text-left">Hora:</p>
+		<div class="form-group">
+			<select name="hora" class="form-control">
+				<option <?php if($reservaParaEditar->getHora() == '9:00') echo "selected='selected'"; ?> value="9:00">9:00</option>
+				<option <?php if($reservaParaEditar->getHora() == '13:00') echo "selected='selected'"; ?> value="13:00">13:00</option>
+				<option <?php if($reservaParaEditar->getHora() == '15:00') echo "selected='selected'"; ?> value="15:00">15:00</option>
+				<option <?php if($reservaParaEditar->getHora() == '17:00') echo "selected='selected'"; ?> value="17:00">17:00</option>
+				<option <?php if($reservaParaEditar->getHora() == '19:00') echo "selected='selected'"; ?> value="19:00">19:00</option>
+				<option <?php if($reservaParaEditar->getHora() == '21:00') echo "selected='selected'"; ?> value="21:00">21:00</option>
+			</select>
+		</div>
+		<p class="lead text-left">Vigente:</p>
+		<div class="form-group">
+			<select class="form-control" name="vigente" value="<?php echo $reservaParaEditar->getVigente(); ?>">
+				<option value="si">Si</option>
+				<option value="no">No</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-default">Guardar cambios</button>
+	</form>
+	<?php else: ?>
+	<form method="POST" action="<?php url_for('reserva/editar') ?>">
 		<label>Fecha:</label>
 		<div class="form-group">
 			<input autofocus class="form-control" type="date" name="fecha">
@@ -13,7 +41,7 @@
 		<button type="submit" class="btn btn-default">Buscar</button>
 	</form>
 	<?php if(isset($reservas)): ?>
-	<form method="POST" action="editar">
+	<form method="POST" action="<?php url_for('reserva/editar') ?>">
 		<select class="form-control" name="reserva">
 			<?php foreach($reservas as $reserva): ?>
 			<option value="<?php echo $reserva->getId(); ?>"><?php echo $reserva->getCliente()->getNombre(). " | ". $reserva->getFecha(). " | ". $reserva->gethora(); ?></option>
@@ -21,31 +49,6 @@
 		</select>
 		<button type="submit" class="btn btn-default">Editar</button>
 	</form>
-	<?php elseif(isset($reservaParaEditar)): ?>
-	<form method="POST" action="editar">
-		<label>Fecha:</label>
-		<div class="form-group">
-			<input class="form-control" type="date" name="fecha" value="<?php echo $reservaParaEditar->getFecha(); ?>">
-		</div>
-		<label>Hora:</label>
-		<div class="form-group">
-			<select name="hora" class="form-control">
-				<option value="9:00">9:00</option>
-				<option value="13:00">13:00</option>
-				<option value="15:00">15:00</option>
-				<option value="17:00">17:00</option>
-				<option value="19:00">19:00</option>
-				<option value="21:00">21:00</option>
-			</select>
-		</div>
-		<label>Vigente:</label>
-		<div class="form-group">
-			<select class="form-control" name="vigente">
-				<option value="si">Si</option>
-				<option value="no">No</option>
-			</select>
-		</div>
-		<button type="submit" class="btn btn-default">Guardar cambios</button>
-	</form>
+	<?php endif; ?>
 	<?php endif; ?>
 </div>

@@ -177,8 +177,12 @@ class reservaActions extends sfActions
 				$reservaParaEliminar = ReservaQuery::create()
 					->findPK($id);
 				
-				$reservaParaEliminar->delete();
-				
+				try{
+					$reservaParaEliminar->delete();
+					$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
+				} catch(PropelException $e){
+					$this->getUser()->setFlash('reservaError', 'Reserva: '. $e.getMessage());
+				}
 				//ACA TENES QUE ENVIAR EL PARTIAL EXITOSO.
 			}
 		}
@@ -194,43 +198,56 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'POST'){
 		
-		if(!$request->getParameter('fecha') == null){
+		if($request->getParameter('hora') != null){
+			$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
+			$fecha = explode('-', $request->getParameter('fecha'));
+			$opciones = array('si', 'no');
+			
+			$todoCorrecto = true;
+			
+			if(!in_array($request->getParameter('vigente'), $opciones)){
+				$todoCorrecto = false;
+			}
+			if(!(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
+				$todoCorrecto = false;
+			}
+			if(!in_array($request->getParameter('hora'), $horasAceptadas)){
+				$todoCorrecto = false;
+			}
+			
+			if($todoCorrecto){
+				$vigente = $request->getParameter('vigente') == 'si' ? true : false;
+				$fecha = $request->getParameter('fecha');
+				$hora = $request->getParameter('hora');
+				
+				$this->reservaParaEditar->setVigente($vigente)
+					->setFecha($fecha)
+					->setHora($hora);
+				
+				$this->reservaParaEditar->save();	
+			}
+		}
+		else if($request->getParameter('fecha') != null){
 			$fecha = $request->getParameter('fecha');
 			
 			if(!empty($fecha)){
-				
 				$fecha = explode("-", $request->getParameter('fecha'));
 				
 				if(checkdate($fecha[1], $fecha[2], $fecha[0])){
-					
 					$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
 					
 					$this->reservas = ReservaQuery::create()
 						->filterByFecha($fecha)
 						->find();
-					
 				}
-				
 			}
 		}
-		else if(!$request->getParameter('reserva') == null){
-			
-			$this->exito = false;
-			$this->error = true;
-			
+		else if($request->getParameter('reserva') != null){
 			if(ctype_digit($request->getParameter('reserva'))){
-				
 				$id = $request->getParameter('reserva');
 				
-				$reservaParaEditar = ReservaQuery::create()
+				$this->reservaParaEditar = ReservaQuery::create()
 					->findPK($id);
-				
-				
-				
-				
-				$this->exito = true;
-				$this->error = false;
-				
 			}
 		}
 	}
