@@ -1,13 +1,13 @@
-<?php if($sf_user->hasFlash('reservaError')): ?>
-		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('reservaError')));?></center>
+<?php if($sf_user->hasFlash('error')): ?>
+		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('error')));?></center>
 <?php endif;?>
 <?php if($sf_user->hasFlash('operacionExitosa')): ?>
 		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
 <?php endif;?>
-<h3><strong>Editar reserva:</strong></h3>
-<div class="container" style="width: 40%">
+<div class="container" style="width: 40%" align="center">
+	<h3><strong>Editar reserva:</strong></h3>
 	<?php if(isset($reservaParaEditar)): ?>
-	<form method="POST" action="<?php url_for('reserva/editar') ?>">
+	<form method="POST" action="<?php echo url_for('reserva/editar'). "/id/". $reservaParaEditar->getId() ?>">
 		<p class="lead text-left">Fecha:</p>
 		<div class="form-group">
 			<input class="form-control" type="date" name="fecha" value="<?php echo $reservaParaEditar->getFecha(); ?>">
@@ -25,15 +25,15 @@
 		</div>
 		<p class="lead text-left">Vigente:</p>
 		<div class="form-group">
-			<select class="form-control" name="vigente" value="<?php echo $reservaParaEditar->getVigente(); ?>">
-				<option value="si">Si</option>
-				<option value="no">No</option>
+			<select class="form-control" name="vigente">
+				<option <?php if($reservaParaEditar->getVigente() == true) echo "selected='selected'" ?> value="si">Si</option>
+				<option <?php if($reservaParaEditar->getVigente() == false) echo "selected='selected'" ?> value="no">No</option>
 			</select>
 		</div>
 		<button type="submit" class="btn btn-default">Guardar cambios</button>
 	</form>
 	<?php else: ?>
-	<form method="POST" action="<?php url_for('reserva/editar') ?>">
+	<form method="POST" action="<?php echo url_for('reserva/editar') ?>">
 		<label>Fecha:</label>
 		<div class="form-group">
 			<input autofocus class="form-control" type="date" name="fecha">
@@ -41,7 +41,7 @@
 		<button type="submit" class="btn btn-default">Buscar</button>
 	</form>
 	<?php if(isset($reservas)): ?>
-	<form method="POST" action="<?php url_for('reserva/editar') ?>">
+	<form method="POST" action="<?php echo url_for('reserva/editar') ?>">
 		<select class="form-control" name="reserva">
 			<?php foreach($reservas as $reserva): ?>
 			<option value="<?php echo $reserva->getId(); ?>"><?php echo $reserva->getCliente()->getNombre(). " | ". $reserva->getFecha(). " | ". $reserva->gethora(); ?></option>

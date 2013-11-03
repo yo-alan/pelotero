@@ -65,7 +65,9 @@ class clienteActions extends sfActions
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
-      $cliente = $form->save();
+      
+      
+      $cliente = $form->upper()->save();
 
       $this->redirect('cliente/index');
     }

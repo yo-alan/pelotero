@@ -12,4 +12,10 @@ class ClienteForm extends BaseClienteForm
   public function configure()
   {
   }
+  
+  public function upper(){
+	
+	return $this;
+  }
+  
 }

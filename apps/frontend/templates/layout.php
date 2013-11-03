@@ -6,12 +6,12 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<?php include_stylesheets() ?>
 		<?php include_javascripts() ?>
-		<?php use_javascript('jquery')?>
 	</head>
 	<body>
 		<header>
 			<div class="container">
-				<a href="<?php echo url_for("reserva/home"); ?>"><h1 style="color: green">PELOTERO S.A.</h1></a>
+				<a href="<?php echo url_for("reserva/index"); ?>"><h1 style="color: green">PELOTERO <small>S.A.</small></h1></a>
+			<!--<a href="<?php //echo url_for("reserva/index"); ?>" title="Pelotero"><img src="images/logo.png"/></a>-->
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						<a class="btn btn-primary" data-toggle="dropdown" data-hover="dropdown">
@@ -47,7 +47,7 @@
 			<?php echo $sf_content ?>
   		</article>
 		<footer align="right">
-			<p>Página creada por Alan Marchán</p>
+			<p class="text-right">Página creada por Alan Marchán</p>
 		</footer>
 	</body>
 </html>

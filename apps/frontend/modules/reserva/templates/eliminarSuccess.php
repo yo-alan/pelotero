@@ -4,8 +4,8 @@
 <?php if($sf_user->hasFlash('operacionExitosa')): ?>
 		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
 <?php endif;?>
-<h3><strong>Eliminar reserva:</strong></h3>
-<div class="container" style="width: 40%">
+<div class="container" style="width: 40%" align="center">
+	<h3><strong>Eliminar reserva:</strong></h3>
 	<form method="POST" action="eliminar" role="form">
 		<label>Buscar reserva:</label>
 		<div class="form-group">
@@ -14,7 +14,7 @@
 		<button class="btn btn-default" class="btn btn-default" type="submit">Buscar</button>
 	</form>
 </div>
-<?php if(isset($reservas) && !empty($reservas)): ?>
+<?php if(isset($reservas) && count($reservas) > 0): ?>
 	<div class="container" style="width: 40%">
 		<form method="POST" action="eliminar" role="form">
 			<div class="form-group">
@@ -27,6 +27,6 @@
 			<button class="btn btn-default" type="submit">Eliminar</button>
 		</form>
 	</div>
-<?php elseif(isset($reservas) && empty($reservas)): ?>
+<?php elseif(isset($reservas)): ?>
 	<h3 style="color: red">No hay reservas para este dia.</h3>
 <?php endif; ?>

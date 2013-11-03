@@ -7,7 +7,7 @@
 <?php if($sf_user->hasFlash('operacionExitosa')): ?>
 		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
 <?php endif;?>
-<div class="container" style="width: 40%">
+<div class="container" style="width: 40%" align="center">
 	<h3><strong>Agregar reserva:</strong></h3>
 	<form method="POST" action="agregar" class="form-horizontal" role="form">
 		<div class="form-group<?php echo $errorNombre ? " has-error" : ""; ?>">
