@@ -97,6 +97,8 @@ class reservaActions extends sfActions
 			if($todoCorrecto)
 				$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
 		}
+		else
+			$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
 	}
 	
 	$respuesta = $this->getResponse();
@@ -138,6 +140,8 @@ class reservaActions extends sfActions
 				} catch(PropelException $e){
 					$this->getUser()->setFlash('reservaError', 'Reserva: '. $e.getMessage());
 				}
+				
+				$this->redirect('reserva/eliminar');
 			}
 		}
 	}
@@ -162,14 +166,14 @@ class reservaActions extends sfActions
 			if(!in_array($request->getParameter('vigente'), $opciones)){
 				$todoCorrecto = false;
 			}
-			if(!(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
+			if($todoCorrecto && !(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
 				$todoCorrecto = false;
 			}
-			if(!in_array($request->getParameter('hora'), $horasAceptadas)){
+			if($todoCorrecto && !in_array($request->getParameter('hora'), $horasAceptadas)){
 				$todoCorrecto = false;
 			}
 			
-			if(!ctype_digit($request->getParameter('id'))){
+			if($todoCorrecto && !ctype_digit($request->getParameter('id'))){
 				$todoCorrecto = false;
 			}
 			
@@ -194,6 +198,9 @@ class reservaActions extends sfActions
 			}
 			else
 				$this->getUser()->setFlash('error', 'Hubo un error al editar la reserva...');
+			
+			
+			$this->redirect('reserva/editar');
 		}
 		else if($request->getParameter('fecha') != null){
 			$fecha = $request->getParameter('fecha');
@@ -223,5 +230,6 @@ class reservaActions extends sfActions
 	$respuesta = $this->getResponse();
 	
 	$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
+	
   }
 }

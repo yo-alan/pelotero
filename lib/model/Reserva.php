@@ -19,19 +19,28 @@ class Reserva extends BaseReserva
 	
 	public function validar($datos){
 		
-		$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
+		$horasAceptadasSemana = array('15:00', '19:00');
+		$horasAceptadasFinde = array('9:00', '13:00', '17:00', '21:00');
 		$fecha = explode('-', $datos['fecha']);
+		$hora_actual = localtime(time(), true);
+		$dia_semana = $hora_actual["tm_wday"];
 		
 		$todoCorrecto = true;
 		
 		if(!ctype_digit($datos['senia'])){
 			$todoCorrecto = false;
 		}
-		if(!(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
+		if($todoCorrecto && !(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
 			$todoCorrecto = false;
 		}
-		if(!in_array($datos['hora'], $horasAceptadas)){
-			$todoCorrecto = false;
+		if($todoCorrecto){
+			
+			if((!in_array($datos['hora'], $horasAceptadasSemana)) && $dia_semana <= 4){
+				$todoCorrecto = false;
+			}
+			elseif((!in_array($datos['hora'], $horasAceptadasFinde)) && $dia_semana > 4){
+				$todoCorrecto = false;
+			}
 		}
 		
 		if($todoCorrecto){

@@ -13,7 +13,7 @@
 	<?php if(isset($reservas)): ?>
 	<table class="table table-bordered table-hover table-condensed">
 		<thead>
-			<tr class="success">
+			<tr>
 				<th>Cliente</th>
 				<th>Telefono</th>
 				<th>Dia</th>
@@ -23,7 +23,7 @@
 		</thead>
 		<tbody>
 			<?php foreach($reservas as $reserva): ?>
-			<tr>
+			<tr class="<?php echo ($reserva['vigente'] == true) ? "success" : "danger"; ?>">
 				<td><?php echo $reserva['nombre']; ?></td>
 				<td><?php echo $reserva['telefono']; ?></td>
 				<td><?php echo $reserva['fecha']; ?></td>

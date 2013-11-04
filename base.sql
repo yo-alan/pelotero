@@ -66,7 +66,7 @@ CREATE TABLE usuario(
 DROP VIEW IF EXISTS reservasDelDia;
 
 CREATE VIEW reservasDelDia AS 
-	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia
+	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia, r.vigente
 	FROM reserva r, cliente c
 	WHERE r.fecha = (SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now())))
 		AND r.cliente_id = c.id;
@@ -74,7 +74,7 @@ CREATE VIEW reservasDelDia AS
 DROP VIEW IF EXISTS reservasDeLaSemana;
 
 CREATE VIEW reservasDeLaSemana AS 
-	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia
+	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia, r.vigente
 	FROM reserva r, cliente c
 	WHERE r.fecha < ((SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now()))) + INTERVAL 7 DAY)
 		AND r.fecha > (SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now())))
@@ -83,7 +83,7 @@ CREATE VIEW reservasDeLaSemana AS
 DROP VIEW IF EXISTS reservasDelMes;
 
 CREATE VIEW reservasDelMes AS 
-	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia
+	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia, r.vigente
 	FROM reserva r, cliente c
 	WHERE r.fecha < ((SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now()))) + INTERVAL 30 DAY)
 		AND r.fecha > (SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now())))
