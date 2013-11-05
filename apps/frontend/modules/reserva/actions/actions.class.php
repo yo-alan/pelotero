@@ -232,4 +232,14 @@ class reservaActions extends sfActions
 	$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
 	
   }
+  
+  public function executeWebService(sfWebRequest $request){
+	
+	$reservas = ReservaQuery::create()->find();
+	
+	$respuesta = $this->getResponse();
+	$respuesta->setContentType(json_encode($reservas));
+	$respuesta->setContentType('Content-Type', 'application/json');
+	
+  }
 }
