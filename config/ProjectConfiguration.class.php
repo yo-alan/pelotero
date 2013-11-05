@@ -10,5 +10,8 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfPropelORMPlugin');
   sfConfig::set('sf_phing_path', sfConfig::get('sf_lib_dir') .'/vendor/phing/phing');
   sfConfig::set('sf_propel_path', sfConfig::get('sf_lib_dir') .'/vendor/propel/propel1');
+  
+  //Agregado de Martin.
+  sfWidgetFormSchema::setDefaultFormFormatterName('mpTwitterBootstrap');
   }
 }
