@@ -241,5 +241,6 @@ class reservaActions extends sfActions
 	$respuesta->setContentType(json_encode($reservas));
 	$respuesta->setContentType('Content-Type', 'application/json');
 	
+	$this->setTemplate('webService');
   }
 }
