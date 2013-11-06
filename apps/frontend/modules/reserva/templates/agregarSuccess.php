@@ -9,7 +9,7 @@
 <?php endif;?>
 <div class="container" style="width: 40%" align="center">
 	<h3><strong>Agregar reserva:</strong></h3>
-	<form method="POST" action="agregar" class="form-horizontal" role="form">
+	<form method="POST" action="<?php echo url_for('reserva/agregar') ?>" class="form-horizontal" role="form">
 		<div class="form-group<?php echo $errorNombre ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Nombre:</label>
 			<div class="col-lg-10">

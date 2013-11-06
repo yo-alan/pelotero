@@ -235,12 +235,12 @@ class reservaActions extends sfActions
   
   public function executeWebService(sfWebRequest $request){
 	
-	$reservas = ReservaQuery::create()->find();
+	$reservas = ReservaQuery::create()
+							->find();
 	
-	$respuesta = $this->getResponse();
-	$respuesta->setContentType(json_encode($reservas));
-	$respuesta->setContentType('Content-Type', 'application/json');
+	$this->getResponse()->setContentType('application/json');
+	$this->renderText(json_encode($reservas));
 	
-	$this->setTemplate('webService');
+	return sfView::NONE;
   }
 }
