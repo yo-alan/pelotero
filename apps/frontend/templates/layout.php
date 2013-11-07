@@ -28,7 +28,7 @@
 			</div>
 			<div class="container">
 				<?php if(!isset($_SESSION['usuario'])): ?>
-				<form method="POST" action="logIn" class="form-inline" role="form" style="float: right">
+				<form method="POST" action="<?php echo url_for('reserva/entrar'); ?>" class="form-inline" role="form" style="float: right">
 					<label>Registrate:</label>
 					<div class="form-group">
 						<input autofocus type="text" class="form-control" name="usuario" placeholder="Usuario">

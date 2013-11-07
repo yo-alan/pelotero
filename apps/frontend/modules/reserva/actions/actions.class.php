@@ -233,12 +233,27 @@ class reservaActions extends sfActions
 	
   }
   
-  public function executeWebService(sfWebRequest $request){
+  public function executeEntrar(sfWebRequest $request){
+	
+	//Validar si el usuario existe en la base de datos
+	//si existe con la contraseña pasada generar la sesion
+	
+	$this->forward404Unless($request->isMethod(sfRequest::POST));
+	
+	
+	
+	$this->setTemplate('index');
+  }
+  
+  public function executeGetReservas(sfWebRequest $request){
 	
 	$reservas = ReservaQuery::create()
 							->find();
 	
 	$this->getResponse()->setContentType('application/json');
+	
+	$reservas = $reservas->toArray();
+	
 	$this->renderText(json_encode($reservas));
 	
 	return sfView::NONE;
