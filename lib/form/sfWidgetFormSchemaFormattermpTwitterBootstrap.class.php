@@ -9,7 +9,7 @@ class sfWidgetFormSchemaFormattermpTwitterBootstrap extends sfWidgetFormSchemaFo
   $rowFormat			  = "<div class=\"form-group %field_has_error%\">\n  %error%%label%\n  <div class=\"form-control\">%field%%help%\n%hidden_fields%</div>\n</div>",
   $errorRowFormat         = "%errors%", // "<div class=\"alert-message error\">\n%errors%</div>\n",
   $errorListFormatInARow  = "%errors%", // "  <div class=\"alert-message error\">\n%errors% </div>\n",
-  $errorRowFormatInARow   = "<span class=\"help-block error-block\">%error%</span>", // "    <p>%error%</p>\n",
+  $errorRowFormatInARow   = "<span class=\"help-block text-danger\">%error%</span>", // "    <p>%error%</p>\n",
   $helpFormat             = '<span class="help-block">%help%</span>',
   $decoratorFormat        = "<ul class=\"man\">\n  %content%</ul>";
 
