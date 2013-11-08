@@ -58,7 +58,7 @@ class sfWidgetFormSchemaFormattermpTwitterBootstrap extends sfWidgetFormSchemaFo
   
   public function formatRow($label, $field, $errors = array(), $help = '', $hiddenFields = null)
   {
-    $error_class_in_row = ($errors instanceof sfValidatorError) ? 'error' : '';
+    $error_class_in_row = ($errors instanceof sfValidatorError) ? 'has-error' : '';
 
     return strtr($this->getRowFormat(), array(
                 '%field_has_error%' => $error_class_in_row,
