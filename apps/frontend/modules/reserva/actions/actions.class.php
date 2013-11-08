@@ -65,7 +65,6 @@ class reservaActions extends sfActions
 		$cliente->validar($request->getParameter('cliente'));
 		
 		if($cliente->esValido()){
-			
 			if($cliente->existe()){
 				$cliente = ClienteQuery::create()
 					->filterByNombre($cliente->getNombre())
@@ -230,7 +229,6 @@ class reservaActions extends sfActions
 	$respuesta = $this->getResponse();
 	
 	$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
-	
   }
   
   public function executeEntrar(sfWebRequest $request){
@@ -239,6 +237,8 @@ class reservaActions extends sfActions
 	//si existe con la contraseña pasada generar la sesion
 	
 	$this->forward404Unless($request->isMethod(sfRequest::POST));
+	
+	
 	
 	
 	
