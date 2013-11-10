@@ -11,7 +11,7 @@ class clienteActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->clientes = clienteQuery::create()->find();
+    $this->clientes = clienteQuery::create()->setLimit(20)->find();
   }
 
   public function executeNew(sfWebRequest $request)

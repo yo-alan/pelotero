@@ -8,7 +8,7 @@
 <div class="container" align="center">
 	<?php echo $form; ?>
 	<div class="form-group">
-		<button class="btn btn-primary" type="submit">Agregar</button>
+		<button class="btn btn-primary" type="submit"><?php echo $form->getObject()->isNew() ? "Agregar" : "Editar"; ?></button>
 	</div>
 </div>
 </form>

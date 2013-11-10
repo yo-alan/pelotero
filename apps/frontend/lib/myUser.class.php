@@ -2,10 +2,12 @@
 
 class myUser extends sfBasicSecurityUser
 {
-	public function iniciarSesion(){
+	public function iniciarSesion($usuario){
 		
-		
-		$this->setAuthenticated(true);
+		if($usuario['nombre'] == "admin" && $usuario['contrasena'] == "udc")
+			$this->setAuthenticated(true);
+		else
+			sfContext::getInstance()->getUser()->setFlash('error', 'El usuario o contraseña no son válidos.');
 	}
 	
 	public function cerrarSesion(){

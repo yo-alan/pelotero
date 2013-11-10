@@ -10,36 +10,28 @@
 	<body>
 		<header>
 			<div class="container">
-				<a href="<?php echo url_for("reserva/index"); ?>"><h1 style="color: green">PELOTERO <small>S.A.</small></h1></a>
-			<!--<a href="<?php //echo url_for("reserva/index"); ?>" title="Pelotero"><img src="images/logo.png"/></a>-->
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<a class="btn btn-primary" data-toggle="dropdown" data-hover="dropdown">
-							Reservas <span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php echo url_for("reserva/agregar"); ?>">Agregar reserva</a></li>
-							<li><a href="<?php echo url_for("reserva/eliminar"); ?>">Eliminar reserva</a></li>
-							<li><a href="<?php echo url_for("reserva/editar"); ?>">Editar reserva</a></li>
-						</ul>
-						<a class="btn btn-primary" href="<?php echo url_for("cliente/index"); ?>">Clientes</a>
+				<a href="<?php echo url_for("reserva/index"); ?>" title="Pelotero"><img src="<?php echo image_path('logo.png'); ?>"/></a>
+				<?php if($sf_user->isAuthenticated()): ?>
+					<div class="btn-toolbar">
+						<div class="btn-group">
+							<a class="btn btn-primary" data-toggle="dropdown" data-hover="dropdown">
+								Reservas <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="<?php echo url_for("reserva/agregar"); ?>">Agregar reserva</a></li>
+								<li><a href="<?php echo url_for("reserva/eliminar"); ?>">Eliminar reserva</a></li>
+								<li><a href="<?php echo url_for("reserva/editar"); ?>">Editar reserva</a></li>
+							</ul>
+							<a class="btn btn-primary" href="<?php echo url_for("cliente/index"); ?>">Clientes</a>
+						</div>
 					</div>
-				</div>
+				<?php endif; ?>
 			</div>
 			<div class="container">
-				<?php if(!isset($_SESSION['usuario'])): ?>
-				<form method="POST" action="<?php echo url_for('reserva/entrar'); ?>" class="form-inline" role="form" style="float: right">
-					<label>Registrate:</label>
-					<div class="form-group">
-						<input autofocus type="text" class="form-control" name="usuario" placeholder="Usuario">
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
-					</div>
-					<button type="submit" class="btn btn-primary">Entrar</button>
-				</form>
+				<?php if($sf_user->isAuthenticated()): ?>
+				<p align="right"><a class="btn btn-primary" href="<?php echo url_for('reserva/cerrarSesion'); ?>">Cerrar sesión</a></p>
 				<?php else: ?>
-				<p align="right"><a class="btn btn-primary" href="salir">Cerrar sesión</a></p>
+				<p align="right"><a class="btn btn-primary" href="<?php echo url_for('reserva/entrar'); ?>">Ingresar</a></p>
 				<?php endif; ?>
 			</div>
 		</header>
