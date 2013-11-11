@@ -17,6 +17,25 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+	if($request->getMethod() == 'GET'){
+		
+		$conexion = Propel::getConnection();
+		
+		try{
+			$sql = "SELECT * FROM reservasDelDia";
+			
+			$stmt = $conexion->prepare($sql);
+			
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			
+			$stmt->execute();
+			
+			$this->reservas = $stmt->fetchAll();
+			
+		} catch(PDOException $e){
+			throw new Exception("Hubo un problema obtener las reservas del dia: ". $e->getMessage());
+		}
+	}
 	if($request->getMethod() == "POST"){
 		$filtrosAceptados = array('hoy', 'semana', 'mes');
 		
@@ -94,6 +113,9 @@ class reservaActions extends sfActions
 						$this->getUser()->setFlash('reservaError', "Reserva: ". $e->getMessage());
 					}
 				}
+				else
+					$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
+				
 				if($todoCorrecto)
 					$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
 			}

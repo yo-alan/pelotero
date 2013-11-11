@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Skeleton subclass for representing a row from the 'reserva' table.
  *
@@ -28,18 +25,23 @@ class Reserva extends BaseReserva
 		$todoCorrecto = true;
 		
 		if(!ctype_digit($datos['senia'])){
+			echo "mal la seña";
 			$todoCorrecto = false;
 		}
 		if($todoCorrecto && !(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
+			echo "mal la fecha";
 			$todoCorrecto = false;
 		}
 		if($todoCorrecto){
-			
-			if((!in_array($datos['hora'], $horasAceptadasSemana)) && $dia_semana <= 4){
-				$todoCorrecto = false;
+			if($dia_semana != 0 && $dia_semana != 6){
+				if((!in_array($datos['hora'], $horasAceptadasSemana))){
+					$todoCorrecto = false;
+				}
 			}
-			elseif((!in_array($datos['hora'], $horasAceptadasFinde)) && $dia_semana > 4){
-				$todoCorrecto = false;
+			else{
+				if((!in_array($datos['hora'], $horasAceptadasFinde))){
+					$todoCorrecto = false;
+				}
 			}
 		}
 		
@@ -57,11 +59,9 @@ class Reserva extends BaseReserva
 			
 			return $this;
 		}
-		
 	}
 	
 	public function esValido(){
-		
 		return $this->valido;
 	}
 }
