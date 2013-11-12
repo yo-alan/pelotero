@@ -46,7 +46,7 @@ class sfWidgetFormSchemaFormattermpTwitterBootstrap extends sfWidgetFormSchemaFo
             }
         }
 
-        $attributes['class'] = isset($attributes['class']) ? $attributes['class'].' control-label' : 'control-label';
+        $attributes['class'] = isset($attributes['class']) ? $attributes['class'].' lead control-label' : 'lead control-label';
 
         return $this->widgetSchema->renderContentTag('label', $labelName, $attributes);
     }

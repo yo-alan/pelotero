@@ -33,3 +33,5 @@ all:
 
     # Enable the database manager
     use_database:           true
+    login_module:             reserva
+    login_action:             entrar

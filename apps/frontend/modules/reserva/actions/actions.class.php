@@ -266,19 +266,19 @@ class reservaActions extends sfActions
   
   public function executeEntrar(sfWebRequest $request){
 	
-	if($this->getuser()->isAuthenticated()){
-		$this->redirect('reserva/index');
+	if($request->getMethod() == 'POST'){
+		if($this->getUser()->iniciarSesion($request->getParameter('usuario')))
+			$this->redirect('reserva/index');
+		else
+			$this->redirect('reserva/entrar');
+	}
+	else{
+		if($this->getuser()->isAuthenticated()){
+			$this->redirect('reserva/index');
+		}
 	}
 	
-	
-  }
-  
-  public function executeIniciarSesion(sfWebRequest $request){
-	
-	if($this->getUser()->iniciarSesion($request->getParameter('usuario')))
-		$this->redirect('reserva/index');
-	else
-		$this->redirect('reserva/entrar');
+	$this->getResponse()->setTitle("Entrar | Pelotero S.A.");
   }
   
   public function executeCerrarSesion(sfWebRequest $request){
