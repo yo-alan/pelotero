@@ -9,9 +9,18 @@
  */
 class clienteActions extends sfActions
 {
+  private $cant_elem_pag = 20;
+  
   public function executeIndex(sfWebRequest $request)
   {
-    $this->clientes = clienteQuery::create()->setLimit(20)->find();
+	
+	$this->pagina += $request->getParameter('pg') ? $request->getParameter('pg') : 1;
+    
+    if($this->pagina < 0)
+		$this->pagina = 1;
+	
+    $this->clientes = ClienteQuery::create()->paginate($page = $this->pagina, $maxPerPage = $this->cant_elem_pag);
+    
   }
 
   public function executeNew(sfWebRequest $request)

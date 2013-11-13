@@ -11,7 +11,7 @@
   </thead>
   <tbody>
 	<tr>
-		<td><input name="cliente[nombre]" autofocus class="form-control" type="text"/></td>
+		<td><input name="cliente[nombre]" class="form-control" type="text"/></td>
 		<td><input name="cliente[telefono]" class="form-control" type="text"/></td>
 		<td><?php echo link_to('Agregar', 'cliente/create', array('class' => 'btn btn-success btn-block', 'method' => 'post')); ?></td>
 	</tr>
@@ -32,8 +32,11 @@
   </tbody>
 </table>
 
-<a href="#"><- Anterior</a>
-
-<a href="#">Siguiente -></a>
+<div align="left" style="width: 80%">
+	<a href="<?php echo url_for('cliente/index?pg='. ($pagina-1)) ?>"><- Anterior</a>
+</div>
+<div align="right" style="width: 80%">
+	<a href="<?php echo url_for('cliente/index?pg='. ($pagina+1)) ?>">Siguiente -></a>
+</div>
 
 </center>
