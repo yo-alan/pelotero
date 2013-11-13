@@ -1,5 +1,10 @@
+<script type="text/javascript">
+$('#filtro').change(function(){
+    document.forms['form_filtro'].submit();
+});
+</script>
 <div class="container">
-	<form method="POST" action="<?php url_for('reserva/index'); ?>" class="form-inline">
+	<form id="form_filtro" method="POST" action="<?php url_for('reserva/index') ?>" class="form-inline">
 		<label>Filtrar por:</label>
 		<div class="form-group">
 			<select name="filtro" class="form-control">
