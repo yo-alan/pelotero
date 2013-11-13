@@ -20,7 +20,6 @@ class clienteActions extends sfActions
 		$this->pagina = 1;
 	
     $this->clientes = ClienteQuery::create()->paginate($page = $this->pagina, $maxPerPage = $this->cant_elem_pag);
-    
   }
 
   public function executeNew(sfWebRequest $request)

@@ -19,6 +19,8 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'GET'){
 		
+		$this->filtro = 'hoy';
+		
 		$conexion = Propel::getConnection();
 		
 		try{

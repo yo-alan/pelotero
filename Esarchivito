@@ -1,0 +1,70 @@
+/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+/*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/;
+DELIMITER /*!*/;
+# at 4
+#131112 19:54:49 server id 1  end_log_pos 107 	Start: binlog v 4, server v 5.5.34-0ubuntu0.12.04.1-log created 131112 19:54:49 at startup
+# Warning: this binlog is either in use or was not closed properly.
+ROLLBACK/*!*/;
+BINLOG '
+ubGCUg8BAAAAZwAAAGsAAAABAAQANS41LjM0LTB1YnVudHUwLjEyLjA0LjEtbG9nAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAC5sYJSEzgNAAgAEgAEBAQEEgAAVAAEGggAAAAICAgCAA==
+'/*!*/;
+# at 107
+#131112 19:57:56 server id 1  end_log_pos 202 	Query	thread_id=46	exec_time=0	error_code=0
+use `test`/*!*/;
+SET TIMESTAMP=1384297076/*!*/;
+SET @@session.pseudo_thread_id=46/*!*/;
+SET @@session.foreign_key_checks=1, @@session.sql_auto_is_null=0, @@session.unique_checks=1, @@session.autocommit=1/*!*/;
+SET @@session.sql_mode=0/*!*/;
+SET @@session.auto_increment_increment=1, @@session.auto_increment_offset=1/*!*/;
+/*!\C utf8 *//*!*/;
+SET @@session.character_set_client=33,@@session.collation_connection=33,@@session.collation_server=8/*!*/;
+SET @@session.lc_time_names=0/*!*/;
+SET @@session.collation_database=DEFAULT/*!*/;
+CREATE TABLE tablita(campo text)
+/*!*/;
+# at 202
+#131112 19:59:34 server id 1  end_log_pos 270 	Query	thread_id=47	exec_time=0	error_code=0
+SET TIMESTAMP=1384297174/*!*/;
+BEGIN
+/*!*/;
+# at 270
+#131112 19:59:34 server id 1  end_log_pos 371 	Query	thread_id=47	exec_time=0	error_code=0
+SET TIMESTAMP=1384297174/*!*/;
+INSERT INTO tablita VALUES('textillo')
+/*!*/;
+# at 371
+#131112 19:59:34 server id 1  end_log_pos 398 	Xid = 156
+COMMIT/*!*/;
+# at 398
+#131112 19:59:43 server id 1  end_log_pos 466 	Query	thread_id=47	exec_time=0	error_code=0
+SET TIMESTAMP=1384297183/*!*/;
+BEGIN
+/*!*/;
+# at 466
+#131112 19:59:43 server id 1  end_log_pos 570 	Query	thread_id=47	exec_time=0	error_code=0
+SET TIMESTAMP=1384297183/*!*/;
+INSERT INTO tablita VALUES('super texto')
+/*!*/;
+# at 570
+#131112 19:59:43 server id 1  end_log_pos 597 	Xid = 157
+COMMIT/*!*/;
+# at 597
+#131112 20:00:18 server id 1  end_log_pos 665 	Query	thread_id=47	exec_time=0	error_code=0
+SET TIMESTAMP=1384297218/*!*/;
+BEGIN
+/*!*/;
+# at 665
+#131112 20:00:18 server id 1  end_log_pos 772 	Query	thread_id=47	exec_time=0	error_code=0
+SET TIMESTAMP=1384297218/*!*/;
+DELETE FROM tablita WHERE campo = 'textillo'
+/*!*/;
+# at 772
+#131112 20:00:18 server id 1  end_log_pos 799 	Xid = 158
+COMMIT/*!*/;
+DELIMITER ;
+# End of log file
+ROLLBACK /* added by mysqlbinlog */;
+/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;
+/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;
