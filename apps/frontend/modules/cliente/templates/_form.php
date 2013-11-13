@@ -5,7 +5,7 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put"/>
 <?php endif; ?>
-<div class="container" align="center">
+<div class="container">
 	<?php echo $form; ?>
 	<div class="form-group">
 		<button class="btn btn-primary" type="submit"><?php echo $form->getObject()->isNew() ? "Agregar" : "Editar"; ?></button>

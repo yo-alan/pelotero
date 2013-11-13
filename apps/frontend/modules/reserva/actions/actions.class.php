@@ -33,28 +33,28 @@ class reservaActions extends sfActions
 			$this->reservas = $stmt->fetchAll();
 			
 		} catch(PDOException $e){
-			throw new Exception("Hubo un problema obtener las reservas del dia: ". $e->getMessage());
+			$this->getUser->setFlash("error", "Hubo un problema al obtener las reservas del dia: ". $e->getMessage());
 		}
 	}
 	if($request->getMethod() == "POST"){
 		$filtrosAceptados = array('hoy', 'semana', 'mes');
 		
 		if(in_array($request->getParameter("filtro"), $filtrosAceptados))
-			$filtro = $request->getParameter("filtro");
+			$this->filtro = $request->getParameter("filtro");
 		else
-			$filtro = "hoy";//Valor por defecto.
+			$this->filtro = "hoy";//Valor por defecto.
 		
 		//http://stackoverflow.com/questions/17566863/propel-custom-sql-for-view-tables
 		$conexion = Propel::getConnection();
 		$sql = "";
 		try{
-			if("hoy" == $filtro){
+			if("hoy" == $this->filtro){
 				$sql = "SELECT * FROM reservasDelDia";
 			}
-			else if("semana" == $filtro){
+			else if("semana" == $this->filtro){
 				$sql = "SELECT * FROM reservasDeLaSemana";
 			}
-			else if("mes" == $filtro){
+			else if("mes" == $this->filtro){
 				$sql = "SELECT * FROM reservasDelMes";
 			}
 			
@@ -67,7 +67,7 @@ class reservaActions extends sfActions
 			$this->reservas = $stmt->fetchAll();
 			
 		} catch(PDOException $e){
-			throw new Exception("Hubo un problema obtener las reservas del dia: ". $e->getMessage());
+			$this->getUser->setFlash("error", "Hubo un problema al obtener las reservas del dia: ". $e->getMessage());
 		}
 	}
   }

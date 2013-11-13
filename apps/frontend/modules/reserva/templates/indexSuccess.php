@@ -1,19 +1,13 @@
-<script type="text/javascript">
-$('#filtro').change(function(){
-    document.forms['form_filtro'].submit();
-});
-</script>
 <div class="container">
-	<form id="form_filtro" method="POST" action="<?php url_for('reserva/index') ?>" class="form-inline">
+	<form method="POST" action="<?php url_for('reserva/index') ?>" class="form-inline">
 		<label>Filtrar por:</label>
 		<div class="form-group">
-			<select name="filtro" class="form-control">
-				<option value="hoy">Hoy</option>
-				<option value="semana">Semana</option>
-				<option value="mes">Mes</option>
+			<select name="filtro" onchange="this.form.submit()" class="form-control">
+				<option <?php if($filtro == "hoy") echo "selected "; ?> value="hoy">Hoy</option>
+				<option <?php if($filtro == "semana") echo "selected "; ?>value="semana">Semana</option>
+				<option <?php if($filtro == "mes") echo "selected "; ?>value="mes">Mes</option>
 			</select>
 		</div>
-		<button type="submit" class="btn btn-default">Ver</button>
 	</form>
 	<?php if(isset($reservas)): ?>
 	<table class="table table-bordered table-hover table-condensed">

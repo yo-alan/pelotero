@@ -1,5 +1,4 @@
 <center>
-
 <h1><strong><i>Listado de clientes</i></strong></h1>
 
 <table class="table table-bordered table-hover table-condensed" style="width: 80%">
@@ -14,11 +13,7 @@
 	<tr>
 		<td><input name="cliente[nombre]" autofocus class="form-control" type="text"/></td>
 		<td><input name="cliente[telefono]" class="form-control" type="text"/></td>
-<!--
-		<td><a class="btn btn-success btn-block" href="<?php echo url_for('cliente/create') ?>">Agregar</a></td>
--->
-		<td><?php echo link_to('Agregar', 'cliente/create', array('class' => 'btn btn-success btn-block', 'method' => 'post')); ?>
-		</td>
+		<td><?php echo link_to('Agregar', 'cliente/create', array('class' => 'btn btn-success btn-block', 'method' => 'post')); ?></td>
 	</tr>
 	<?php foreach ($clientes as $cliente): ?>
 	<tr>
