@@ -2,7 +2,7 @@
 <h1><strong><i>Listado de clientes</i></strong></h1>
 
 <form method="POST" action="<?php echo url_for('cliente/create') ?>">
-	<input type="hidden" name="cliente[_csrf_token]" value="<?php echo $form->getCSRFToken() ?>"/>
+	<input type="hidden" name="cliente[<?php echo $form->getCSRFFieldName() ?>]" value="<?php echo $form->getCSRFToken() ?>"/>
 	<table class="table table-bordered table-hover table-condensed" style="width: 80%">
 	  <thead>
 		<tr>
