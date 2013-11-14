@@ -13,6 +13,7 @@ class clienteActions extends sfActions
   
   public function executeIndex(sfWebRequest $request)
   {
+	$this->form = new clienteForm();
 	
 	$this->pagina += $request->getParameter('pg') ? $request->getParameter('pg') : 1;
     

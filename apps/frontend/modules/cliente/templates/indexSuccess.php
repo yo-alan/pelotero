@@ -1,5 +1,4 @@
 <center>
-<?php $form = new BaseForm() ?>
 <h1><strong><i>Listado de clientes</i></strong></h1>
 
 <form method="POST" action="<?php echo url_for('cliente/create') ?>">
