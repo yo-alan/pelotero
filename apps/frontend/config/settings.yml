@@ -35,3 +35,5 @@ all:
     use_database:           true
     login_module:             reserva
     login_action:             entrar
+    i18n:                  true
+    default_culture:          es_AR

@@ -13,6 +13,9 @@ class ClienteForm extends BaseClienteForm
   {
 	$this->validatorSchema['nombre'] = new sfValidatorRegex(array('pattern' => '/^[a-zA-Z\ ]+$/'));
 	$this->validatorSchema['telefono'] = new sfValidatorRegex(array('pattern' => '/^[0-9]+$/'));
+	
+	$this->getWidget('nombre')->setAttribute('class', 'form-control');
+	$this->getWidget('telefono')->setAttribute('class', 'form-control');
   }
   
   public function upper(){

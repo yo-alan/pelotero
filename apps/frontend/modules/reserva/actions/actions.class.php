@@ -76,194 +76,189 @@ class reservaActions extends sfActions
   
   public function executeAgregar(sfWebRequest $request)
   {
-	if($this->getUser()->isAuthenticated()){
-		if($request->getMethod() == 'POST'){
-			
-			$todoCorrecto = true;
-			
-			//Cliente nuevo a ser insertado.
-			$cliente = new Cliente();
-			
-			$cliente->validar($request->getParameter('cliente'));
-			
-			if($cliente->esValido()){
-				if($cliente->existe()){
-					$cliente = ClienteQuery::create()
-						->filterByNombre($cliente->getNombre())
-						->filterByTelefono($cliente->getTelefono())
-						->findOne();
+	if($request->getMethod() == 'POST'){
+		
+		$todoCorrecto = true;
+		
+		//Cliente nuevo a ser insertado.
+		$cliente = new Cliente();
+		
+		$cliente->validar($request->getParameter('cliente'));
+		
+		if($cliente->esValido()){
+			if($cliente->existe()){
+				$cliente = ClienteQuery::create()
+					->filterByNombre($cliente->getNombre())
+					->filterByTelefono($cliente->getTelefono())
+					->findOne();
+			}
+			else{
+				try{
+					$cliente->save();
+				} catch(PropelException $e){
+					$todoCorrecto = false;
+					$this->getUser()->setFlash('error', "Cliente: ". $e->getMessage());
 				}
-				else{
-					try{
-						$cliente->save();
-					} catch(PropelException $e){
-						$todoCorrecto = false;
-						$this->getUser()->setFlash('clienteError', "Cliente: ". $e->getMessage());
-					}
+			}
+			
+			//Reserva nueva a ser insertada.
+			$reserva = new Reserva();
+			$reserva->setCliente($cliente);
+			
+			try{
+				$reserva->validar($request->getParameter('reserva'));
+			} catch(sfValidatoError $e){
+				$todoCorrecto = false;
+				$this->getUser()->setFlash('error', "Reserva: ". $e->getMessage());
+			}
+			
+			
+			if($reserva->esValido()){
+				try{
+					$reserva->save();
+				} catch(PropelException $e){
+					$todoCorrecto = false;
+					$this->getUser()->setFlash('error', "Reserva: ". $e->getMessage());
 				}
-				
-				//Reserva nueva a ser insertada.
-				$reserva = new Reserva();
-				$reserva->setCliente($cliente)
-						->validar($request->getParameter('reserva'));
-				
-				if($reserva->esValido()){
-					try{
-						$reserva->save();
-					} catch(PropelException $e){
-						$todoCorrecto = false;
-						$this->getUser()->setFlash('reservaError', "Reserva: ". $e->getMessage());
-					}
-				}
-				else
-					$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
-				
-				if($todoCorrecto)
-					$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
 			}
 			else
 				$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
+			
+			if($todoCorrecto)
+				$this->getUser()->setFlash('exito', '¡La operación se realizó exitosamente!');
 		}
-		
-		$respuesta = $this->getResponse();
-		$respuesta->setTitle("Agregar Reserva | Pelotero S.A.");
+		else
+			$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
 	}
-	else
-		$this->redirect('reserva/entrar');
+	
+	$respuesta = $this->getResponse();
+	$respuesta->setTitle("Agregar Reserva | Pelotero S.A.");
   }
   
   public function executeEliminar(sfWebRequest $request)
   {
-	if($this->getUser()->isAuthenticated()){
-		if($request->getMethod() == 'POST'){
+	if($request->getMethod() == 'POST'){
+		
+		if($request->getParameter('fecha') != null){
+			$fecha = $request->getParameter('fecha');
 			
-			if($request->getParameter('fecha') != null){
-				$fecha = $request->getParameter('fecha');
+			if(!empty($fecha)){
 				
-				if(!empty($fecha)){
-					
-					$fecha = explode("-", $request->getParameter('fecha'));
-					
-					if(checkdate($fecha[1], $fecha[2], $fecha[0])){
-						
-						$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
-						
-						$this->reservas = ReservaQuery::create()
-							->filterByFecha($fecha)
-							->find();
-					}
-				}
-			}
-			else if($request->getParameter('reserva') != null){
+				$fecha = explode("-", $request->getParameter('fecha'));
 				
-				if(ctype_digit($request->getParameter('reserva'))){
-					$id = $request->getParameter('reserva');
+				if(checkdate($fecha[1], $fecha[2], $fecha[0])){
 					
-					$reservaParaEliminar = ReservaQuery::create()
-						->findPK($id);
+					$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
 					
-					try{
-						$reservaParaEliminar->delete();
-						$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
-					} catch(PropelException $e){
-						$this->getUser()->setFlash('reservaError', 'Reserva: '. $e.getMessage());
-					}
-					
-					$this->redirect('reserva/eliminar');
+					$this->reservas = ReservaQuery::create()
+						->filterByFecha($fecha)
+						->find();
 				}
 			}
 		}
-		
-		$respuesta = $this->getResponse();
-		
-		$respuesta->setTitle("Eliminar Reserva | Pelotero S.A.");
+		else if($request->getParameter('reserva') != null){
+			
+			if(ctype_digit($request->getParameter('reserva'))){
+				$id = $request->getParameter('reserva');
+				
+				$reservaParaEliminar = ReservaQuery::create()
+					->findPK($id);
+				
+				try{
+					$reservaParaEliminar->delete();
+					$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
+				} catch(PropelException $e){
+					$this->getUser()->setFlash('reservaError', 'Reserva: '. $e.getMessage());
+				}
+				
+				$this->redirect('reserva/eliminar');
+			}
+		}
 	}
-	else
-		$this->redirect('reserva/entrar');
+	
+	$respuesta = $this->getResponse();
+	
+	$respuesta->setTitle("Eliminar Reserva | Pelotero S.A.");
   }
   
   public function executeEditar(sfWebRequest $request)
   {
-	if($this->getUser()->isAuthenticated()){
-		if($request->getMethod() == 'POST'){
+	if($request->getMethod() == 'POST'){
+		
+		if($request->getParameter('hora') != null){
+			$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
+			$fecha = explode('-', $request->getParameter('fecha'));
+			$opciones = array('si', 'no');
 			
-			if($request->getParameter('hora') != null){
-				$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
-				$fecha = explode('-', $request->getParameter('fecha'));
-				$opciones = array('si', 'no');
+			$todoCorrecto = true;
+			
+			if(!in_array($request->getParameter('vigente'), $opciones)){
+				$todoCorrecto = false;
+			}
+			if($todoCorrecto && !(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
+				$todoCorrecto = false;
+			}
+			if($todoCorrecto && !in_array($request->getParameter('hora'), $horasAceptadas)){
+				$todoCorrecto = false;
+			}
+			
+			if($todoCorrecto && !ctype_digit($request->getParameter('id'))){
+				$todoCorrecto = false;
+			}
+			
+			if($todoCorrecto){
+				$vigente = $request->getParameter('vigente') == 'si' ? true : false;
+				$fecha = $request->getParameter('fecha');
+				$hora = $request->getParameter('hora');
+				$id = $request->getParameter('id');
 				
-				$todoCorrecto = true;
+				$this->reservaParaEditar = ReservaQuery::create()
+					->findPK($id);
 				
-				if(!in_array($request->getParameter('vigente'), $opciones)){
-					$todoCorrecto = false;
-				}
-				if($todoCorrecto && !(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
-					$todoCorrecto = false;
-				}
-				if($todoCorrecto && !in_array($request->getParameter('hora'), $horasAceptadas)){
-					$todoCorrecto = false;
-				}
+				$this->reservaParaEditar->setVigente($vigente)
+					->setFecha($fecha)
+					->setHora($hora);
 				
-				if($todoCorrecto && !ctype_digit($request->getParameter('id'))){
-					$todoCorrecto = false;
-				}
+				$this->reservaParaEditar->save();
 				
-				if($todoCorrecto){
-					$vigente = $request->getParameter('vigente') == 'si' ? true : false;
-					$fecha = $request->getParameter('fecha');
-					$hora = $request->getParameter('hora');
-					$id = $request->getParameter('id');
-					
-					$this->reservaParaEditar = ReservaQuery::create()
-						->findPK($id);
-					
-					$this->reservaParaEditar->setVigente($vigente)
-						->setFecha($fecha)
-						->setHora($hora);
-					
-					$this->reservaParaEditar->save();
-					
-					$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
-					
-					$this->redirect('reserva/editar');
-				}
-				else
-					$this->getUser()->setFlash('error', 'Hubo un error al editar la reserva...');
-				
+				$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
 				
 				$this->redirect('reserva/editar');
 			}
-			else if($request->getParameter('fecha') != null){
-				$fecha = $request->getParameter('fecha');
+			else
+				$this->getUser()->setFlash('error', 'Hubo un error al editar la reserva...');
+			
+			
+			$this->redirect('reserva/editar');
+		}
+		else if($request->getParameter('fecha') != null){
+			$fecha = $request->getParameter('fecha');
+			
+			if(!empty($fecha)){
+				$fecha = explode("-", $request->getParameter('fecha'));
 				
-				if(!empty($fecha)){
-					$fecha = explode("-", $request->getParameter('fecha'));
+				if(checkdate($fecha[1], $fecha[2], $fecha[0])){
+					$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
 					
-					if(checkdate($fecha[1], $fecha[2], $fecha[0])){
-						$fecha = $fecha[0]. "-". $fecha[1]. "-". $fecha[2];
-						
-						$this->reservas = ReservaQuery::create()
-							->filterByFecha($fecha)
-							->find();
-					}
-				}
-			}
-			else if($request->getParameter('reserva') != null){
-				if(ctype_digit($request->getParameter('reserva'))){
-					$id = $request->getParameter('reserva');
-					
-					$this->reservaParaEditar = ReservaQuery::create()
-						->findPK($id);
+					$this->reservas = ReservaQuery::create()
+						->filterByFecha($fecha)
+						->find();
 				}
 			}
 		}
-		
-		$respuesta = $this->getResponse();
-		
-		$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
+		else if($request->getParameter('reserva') != null){
+			if(ctype_digit($request->getParameter('reserva'))){
+				$id = $request->getParameter('reserva');
+				
+				$this->reservaParaEditar = ReservaQuery::create()
+					->findPK($id);
+			}
+		}
 	}
-	else
-		$this->redirect('reserva/entrar');
+	
+	$respuesta = $this->getResponse();
+	
+	$respuesta->setTitle("Editar Reserva | Pelotero S.A.");
   }
   
   public function executeEntrar(sfWebRequest $request){
