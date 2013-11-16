@@ -1,4 +1,4 @@
-# Pelotero #
+# Pelotero S.A.#
 
 *Aplicación diseñada para la admnistración de un pelotero 5 estrellas*
 

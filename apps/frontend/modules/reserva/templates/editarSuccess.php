@@ -1,8 +1,7 @@
-<?php if($sf_user->hasFlash('error')): ?>
+<?php if($sf_user->hasFlash('exito')): ?>
+		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('exito')));?></center>
+<?php elseif($sf_user->hasFlash('error')): ?>
 		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('error')));?></center>
-<?php endif;?>
-<?php if($sf_user->hasFlash('operacionExitosa')): ?>
-		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
 <?php endif;?>
 <div class="container" style="width: 40%" align="center">
 	<h3><strong>Editar reserva:</strong></h3>

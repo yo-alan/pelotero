@@ -97,7 +97,7 @@ class reservaActions extends sfActions
 					$cliente->save();
 				} catch(PropelException $e){
 					$todoCorrecto = false;
-					$this->getUser()->setFlash('error', "Cliente: ". $e->getMessage());
+					$this->getUser()->setFlash('error', "Cliente: Hubo un problema al guardar los datos del cliente.");
 				}
 			}
 			
@@ -107,9 +107,9 @@ class reservaActions extends sfActions
 			
 			try{
 				$reserva->validar($request->getParameter('reserva'));
-			} catch(sfValidatoError $e){
+			} catch(sfValidatorError $e){
 				$todoCorrecto = false;
-				$this->getUser()->setFlash('error', "Reserva: ". $e->getMessage());
+				$this->getUser()->setFlash('error', "Reserva: Hubo un error al validar los datos.");
 			}
 			
 			
@@ -118,7 +118,7 @@ class reservaActions extends sfActions
 					$reserva->save();
 				} catch(PropelException $e){
 					$todoCorrecto = false;
-					$this->getUser()->setFlash('error', "Reserva: ". $e->getMessage());
+					$this->getUser()->setFlash('error', "Reserva: Hubo un error al guardar la reserva.");
 				}
 			}
 			else
@@ -129,6 +129,8 @@ class reservaActions extends sfActions
 		}
 		else
 			$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
+		
+		$this->redirect('reserva/agregar');
 	}
 	
 	$respuesta = $this->getResponse();
@@ -174,6 +176,8 @@ class reservaActions extends sfActions
 				$this->redirect('reserva/eliminar');
 			}
 		}
+		
+		$this->redirect('reserva/eliminar');
 	}
 	
 	$respuesta = $this->getResponse();
@@ -227,7 +231,6 @@ class reservaActions extends sfActions
 			}
 			else
 				$this->getUser()->setFlash('error', 'Hubo un error al editar la reserva...');
-			
 			
 			$this->redirect('reserva/editar');
 		}

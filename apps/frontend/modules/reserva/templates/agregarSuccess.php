@@ -1,9 +1,5 @@
-<?php if($sf_user->hasFlash('clienteError')): ?>
-		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('clienteError')));?></center>
-<?php elseif($sf_user->hasFlash('reservaError')): ?>
-		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('reservaError')));?></center>
-<?php elseif($sf_user->hasFlash('operacionExitosa')): ?>
-		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('operacionExitosa')));?></center>
+<?php if($sf_user->hasFlash('exito')): ?>
+		<center><?php include_partial('global/exito', array('mensaje' => $sf_user->getFlash('exito')));?></center>
 <?php elseif($sf_user->hasFlash('error')): ?>
 		<center><?php include_partial('global/error', array('mensaje' => $sf_user->getFlash('error')));?></center>
 <?php endif;?>
