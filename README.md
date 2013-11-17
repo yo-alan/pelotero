@@ -15,5 +15,5 @@ mkdir log
 mkdir cache
 cp config/databases.yml.dist config/databases.yml
 php symfony project:permissions
-php symfony plugin:publish-assets`
+php symfony plugin:publish-assets
 ```
