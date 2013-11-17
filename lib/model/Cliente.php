@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Skeleton subclass for representing a row from the 'cliente' table.
  *
@@ -22,6 +19,8 @@ class Cliente extends BaseCliente
 		
 		$nombreCorrecto = true;
 		$nombre = "";
+		$errorNombre = false;
+		$errorTelefono = false;
 		
 		if(strpos($datos['nombre'], ' ') == false){
 			
@@ -41,9 +40,6 @@ class Cliente extends BaseCliente
 			}
 		}
 		
-		$errorNombre = false;
-		$errorTelefono = false;
-		
 		if(!$nombreCorrecto){
 			$errorNombre = true;
 		}
@@ -52,17 +48,13 @@ class Cliente extends BaseCliente
 		}
 		
 		if($errorNombre == false && $errorTelefono == false){
-			
 			$nombre = $nombre;
 			$telefono = $datos['telefono'];
 			
 			$this->setNombre($nombre)
 				->setTelefono($telefono);
 			
-			//~ if($this->existe())
-				//~ $this->valido = false;
-			//~ else
-				$this->valido = true;
+			$this->valido = true;
 		}
 	}
 	
@@ -79,10 +71,8 @@ class Cliente extends BaseCliente
 				->find();
 		
 		foreach($clientes as $cliente){
-			
 			if($cliente->getNombre() == $this->getNombre() && $cliente->getTelefono() == $this->getTelefono())
 				return true;
-			
 		}
 		
 		return false;

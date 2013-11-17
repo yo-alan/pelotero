@@ -97,7 +97,7 @@ class reservaActions extends sfActions
 					$cliente->save();
 				} catch(PropelException $e){
 					$todoCorrecto = false;
-					$this->getUser()->setFlash('error', "Cliente: Hubo un problema al guardar los datos del cliente.");
+					$this->getUser()->setFlash('error', 'Cliente: Hubo un problema al guardar los datos del cliente.');
 				}
 			}
 			
@@ -112,7 +112,6 @@ class reservaActions extends sfActions
 				$this->getUser()->setFlash('error', "Reserva: Hubo un error al validar los datos.");
 			}
 			
-			
 			if($reserva->esValido()){
 				try{
 					$reserva->save();
@@ -121,14 +120,12 @@ class reservaActions extends sfActions
 					$this->getUser()->setFlash('error', "Reserva: Hubo un error al guardar la reserva.");
 				}
 			}
-			else
-				$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
 			
 			if($todoCorrecto)
 				$this->getUser()->setFlash('exito', '¡La operación se realizó exitosamente!');
 		}
 		else
-			$this->getUser()->setFlash('error', "Los datos ingresados no son correctos...");
+			$this->getUser()->setFlash('error', 'Los datos ingresados no son correctos...');
 		
 		$this->redirect('reserva/agregar');
 	}
@@ -163,21 +160,18 @@ class reservaActions extends sfActions
 			if(ctype_digit($request->getParameter('reserva'))){
 				$id = $request->getParameter('reserva');
 				
-				$reservaParaEliminar = ReservaQuery::create()
-					->findPK($id);
+				$reservaParaEliminar = ReservaQuery::create()->findPK($id);
 				
 				try{
 					$reservaParaEliminar->delete();
-					$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
+					$this->getUser()->setFlash('exito', '¡La operación se realizó exitosamente!');
 				} catch(PropelException $e){
-					$this->getUser()->setFlash('reservaError', 'Reserva: '. $e.getMessage());
+					$this->getUser()->setFlash('error', 'Ocurrió un error al eliminar la reserva...');
 				}
 				
 				$this->redirect('reserva/eliminar');
 			}
 		}
-		
-		$this->redirect('reserva/eliminar');
 	}
 	
 	$respuesta = $this->getResponse();
@@ -189,48 +183,21 @@ class reservaActions extends sfActions
   {
 	if($request->getMethod() == 'POST'){
 		
-		if($request->getParameter('hora') != null){
-			$horasAceptadas = array('9:00', '13:00', '15:00', '17:00', '19:00', '21:00');
-			$fecha = explode('-', $request->getParameter('fecha'));
-			$opciones = array('si', 'no');
+		if(ctype_digit($request->getParameter('id'))){
+			$id = $request->getParameter('id');
 			
-			$todoCorrecto = true;
+			$reserva = ReservaQuery::create()->findPK($id);
 			
-			if(!in_array($request->getParameter('vigente'), $opciones)){
-				$todoCorrecto = false;
-			}
-			if($todoCorrecto && !(ctype_digit($fecha[0]) && ctype_digit($fecha[1]) && ctype_digit($fecha[2]) && checkdate((int)$fecha[1], (int)$fecha[2], (int)$fecha[0]))){
-				$todoCorrecto = false;
-			}
-			if($todoCorrecto && !in_array($request->getParameter('hora'), $horasAceptadas)){
-				$todoCorrecto = false;
-			}
+			$reserva->setFecha($request->getParameter('fecha'))
+					->setHora($request->getParameter('hora'))
+					->setVigente($request->getParameter('vigente'));
 			
-			if($todoCorrecto && !ctype_digit($request->getParameter('id'))){
-				$todoCorrecto = false;
+			try{
+				$reserva->save();
+				$this->getUser()->setFlash('exito', '¡La reserva se editó exitosamente!');
+			} catch (PropelException $e){
+				$this->getUser()->setFlash('error', 'Ocurrió un error al editar la reserva...');
 			}
-			
-			if($todoCorrecto){
-				$vigente = $request->getParameter('vigente') == 'si' ? true : false;
-				$fecha = $request->getParameter('fecha');
-				$hora = $request->getParameter('hora');
-				$id = $request->getParameter('id');
-				
-				$this->reservaParaEditar = ReservaQuery::create()
-					->findPK($id);
-				
-				$this->reservaParaEditar->setVigente($vigente)
-					->setFecha($fecha)
-					->setHora($hora);
-				
-				$this->reservaParaEditar->save();
-				
-				$this->getUser()->setFlash('operacionExitosa', '¡La operación se realizó exitosamente!');
-				
-				$this->redirect('reserva/editar');
-			}
-			else
-				$this->getUser()->setFlash('error', 'Hubo un error al editar la reserva...');
 			
 			$this->redirect('reserva/editar');
 		}
