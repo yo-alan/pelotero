@@ -17,61 +17,7 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-	if($request->getMethod() == 'GET'){
-		
-		$this->filtro = 'hoy';
-		
-		$conexion = Propel::getConnection();
-		
-		try{
-			$sql = "SELECT * FROM reservasDelDia";
-			
-			$stmt = $conexion->prepare($sql);
-			
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			
-			$stmt->execute();
-			
-			$this->reservas = $stmt->fetchAll();
-			
-		} catch(PDOException $e){
-			$this->getUser->setFlash("error", "Hubo un problema al obtener las reservas del dia: ". $e->getMessage());
-		}
-	}
-	if($request->getMethod() == "POST"){
-		$filtrosAceptados = array('hoy', 'semana', 'mes');
-		
-		if(in_array($request->getParameter("filtro"), $filtrosAceptados))
-			$this->filtro = $request->getParameter("filtro");
-		else
-			$this->filtro = "hoy";//Valor por defecto.
-		
-		//http://stackoverflow.com/questions/17566863/propel-custom-sql-for-view-tables
-		$conexion = Propel::getConnection();
-		$sql = "";
-		try{
-			if("hoy" == $this->filtro){
-				$sql = "SELECT * FROM reservasDelDia";
-			}
-			else if("semana" == $this->filtro){
-				$sql = "SELECT * FROM reservasDeLaSemana";
-			}
-			else if("mes" == $this->filtro){
-				$sql = "SELECT * FROM reservasDelMes";
-			}
-			
-			$stmt = $conexion->prepare($sql);
-			
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			
-			$stmt->execute();
-			
-			$this->reservas = $stmt->fetchAll();
-			
-		} catch(PDOException $e){
-			$this->getUser->setFlash("error", "Hubo un problema al obtener las reservas del dia: ". $e->getMessage());
-		}
-	}
+	$this->reservas = ReservaQuery::create()->find();
   }
   
   public function executeAgregar(sfWebRequest $request)
