@@ -17,7 +17,14 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-	$this->reservas = ReservaQuery::create()->find();
+	$hora_actual = localtime(time(), true);
+	$dia_semana = $hora_actual['tm_wday'];
+	
+	$this->reservas = ReservaQuery::create()
+			->filterByFecha()
+			->orderBy('hora')
+			->orderBy('fecha')
+			->find();
   }
   
   public function executeAgregar(sfWebRequest $request)
