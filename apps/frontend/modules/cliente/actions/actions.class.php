@@ -15,7 +15,7 @@ class clienteActions extends sfActions
   {
 	$this->form = new clienteForm();
 	
-	$this->pagina += $request->getParameter('pg') ? $request->getParameter('pg') : 1;
+	$this->pagina += $request->getParameter('pg', 1);
     
     if($this->pagina < 0)
 		$this->pagina = 1;

@@ -74,4 +74,5 @@ class Reserva extends BaseReserva
 	public function esValido(){
 		return $this->valido;
 	}
+	
 }

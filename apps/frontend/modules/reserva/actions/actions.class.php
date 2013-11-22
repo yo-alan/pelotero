@@ -17,14 +17,21 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-	$hora_actual = localtime(time(), true);
-	$dia_semana = $hora_actual['tm_wday'];
 	
-	$this->reservas = ReservaQuery::create()
-			->filterByFecha()
-			->orderBy('hora')
-			->orderBy('fecha')
-			->find();
+	$this->reservasDomingo = ReservaQuery::create()->reservasDelDia(0);
+	
+	$this->reservasLunes = ReservaQuery::create()->reservasDelDia(1);
+	
+	$this->reservasMartes = ReservaQuery::create()->reservasDelDia(2);
+	
+	$this->reservasMiercoles = ReservaQuery::create()->reservasDelDia(3);
+	
+	$this->reservasJueves = ReservaQuery::create()->reservasDelDia(4);
+	
+	$this->reservasViernes = ReservaQuery::create()->reservasDelDia(5);
+	
+	$this->reservasSabado = ReservaQuery::create()->reservasDelDia(6);
+	
   }
   
   public function executeAgregar(sfWebRequest $request)

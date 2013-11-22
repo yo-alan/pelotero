@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Skeleton subclass for performing query and update operations on the 'reserva' table.
  *
@@ -58,4 +55,24 @@ class ReservaQuery extends BaseReservaQuery
 		return $this->valido;
 	}
 	
+	public function reservasDelDia($dia){
+		
+		$hora_actual = localtime(time(), true);
+		$dia_semana = $hora_actual['tm_wday'];
+		
+		$dia_actual = $hora_actual['tm_year']. "-". $hora_actual['tm_mon']. "-". $hora_actual['tm_mday'];
+		
+		$previous_date = date('Y-m-d', strtotime($date. ' -1 day'));
+		$next_date = date('Y-m-d', strtotime($date. ' +1 day'));
+		
+		$dia_de_la_semana = //Queda pendiente;
+		
+		
+		
+		return $this->filterByFecha($dia_de_la_semana)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
+		
+	}
 }
