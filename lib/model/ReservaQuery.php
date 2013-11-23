@@ -57,22 +57,54 @@ class ReservaQuery extends BaseReservaQuery
 	
 	public function reservasDelDia($dia){
 		
-		$hora_actual = localtime(time(), true);
-		$dia_semana = $hora_actual['tm_wday'];
+		$local = localtime(time(), true);
 		
-		$dia_actual = $hora_actual['tm_year']. "-". $hora_actual['tm_mon']. "-". $hora_actual['tm_mday'];
+		$hoy = ($local['tm_year']+1900). "-". ($local['tm_mon']+1). "-". $local['tm_mday'];
 		
-		$previous_date = date('Y-m-d', strtotime($date. ' -1 day'));
-		$next_date = date('Y-m-d', strtotime($date. ' +1 day'));
+		$dia_de_la_semana = $local['tm_wday'];
 		
-		$dia_de_la_semana = //Queda pendiente;
+		$domingo = date('Y-m-d', strtotime($hoy. ' -'. $dia_de_la_semana. ' day'));
+		$lunes = date('Y-m-d', strtotime($domingo. ' +1 day'));
+		$martes = date('Y-m-d', strtotime($domingo. ' +2 day'));
+		$miercoles = date('Y-m-d', strtotime($domingo. ' +3 day'));
+		$jueves = date('Y-m-d', strtotime($domingo. ' +4 day'));
+		$viernes = date('Y-m-d', strtotime($domingo. ' +5 day'));
+		$sabado = date('Y-m-d', strtotime($domingo. ' +6 day'));
 		
-		
-		
-		return $this->filterByFecha($dia_de_la_semana)
+		if($dia == 0)
+			return $this->filterByFecha($domingo)
 						->orderBy('hora')
 						->orderBy('fecha')
 						->find();
-		
+		elseif($dia == 1)
+			return $this->filterByFecha($lunes)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
+		elseif($dia == 2)
+			return $this->filterByFecha($martes)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
+		elseif($dia == 3)
+			return $this->filterByFecha($miercoles)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
+		elseif($dia == 4)
+			return $this->filterByFecha($jueves)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
+		elseif($dia == 5)
+			return $this->filterByFecha($viernes)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
+		elseif($dia == 6)
+			return $this->filterByFecha($sabado)
+						->orderBy('hora')
+						->orderBy('fecha')
+						->find();
 	}
 }
