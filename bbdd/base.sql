@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS telefono;
 DROP TABLE IF EXISTS reserva;
 DROP TABLE IF EXISTS cliente;
 DROP TABLE IF EXISTS usuario;
+DROP EVENT IF EXISTS reservasViejas;
 
 CREATE TABLE cliente(
 	
@@ -68,7 +69,7 @@ DROP VIEW IF EXISTS reservasDelDia;
 CREATE VIEW reservasDelDia AS 
 	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia, r.vigente
 	FROM reserva r, cliente c
-	WHERE r.fecha = (SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now())))
+	WHERE r.fecha = CURRENT_DATE
 		AND r.cliente_id = c.id;
 
 DROP VIEW IF EXISTS reservasDeLaSemana;
@@ -76,8 +77,8 @@ DROP VIEW IF EXISTS reservasDeLaSemana;
 CREATE VIEW reservasDeLaSemana AS 
 	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia, r.vigente
 	FROM reserva r, cliente c
-	WHERE r.fecha < ((SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now()))) + INTERVAL 7 DAY)
-		AND r.fecha > (SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now())))
+	WHERE r.fecha < (CURRENT_DATE + INTERVAL 7 DAY)
+		AND r.fecha > CURRENT_DATE
 		AND r.cliente_id = c.id;
 
 DROP VIEW IF EXISTS reservasDelMes;
@@ -85,9 +86,13 @@ DROP VIEW IF EXISTS reservasDelMes;
 CREATE VIEW reservasDelMes AS 
 	SELECT c.nombre, c.telefono, r.fecha, r.hora, r.senia, r.vigente
 	FROM reserva r, cliente c
-	WHERE r.fecha < ((SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now()))) + INTERVAL 30 DAY)
-		AND r.fecha > (SELECT concat(extract(year from now()), '-', extract(month from now()), '-', extract(day from now())))
+	WHERE r.fecha < (CURRENT_DATE + INTERVAL 30 DAY)
+		AND r.fecha > CURRENT_DATE
 		AND r.cliente_id = c.id;
 
+CREATE EVENT IF NOT EXISTS reservasViejas
+	ON SCHEDULE EVERY 3 HOUR
+	DO UPDATE reserva SET vigente = false WHERE fecha < CURRENT_DATE
+		OR (fecha = CURRENT_DATE AND hora < CURRENT_TIME);
 
 COMMIT;

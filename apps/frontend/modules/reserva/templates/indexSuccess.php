@@ -3,13 +3,13 @@
 		<thead>
 			<tr>
 				<th>Hora</th>
-				<th>Domingo</th>
-				<th>Lunes</th>
-				<th>Martes</th>
-				<th>Miércoles</th>
-				<th>Jueves</th>
-				<th>Viernes</th>
-				<th>Sábado</th>
+				<th><?php echo $primerDia ?></th>
+				<th><?php echo $segundoDia ?></th>
+				<th><?php echo $tercerDia ?></th>
+				<th><?php echo $cuartoDia ?></th>
+				<th><?php echo $quintoDia ?></th>
+				<th><?php echo $sextoDia ?></th>
+				<th><?php echo $septimoDia ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,8 +23,9 @@
 					$entre = false;
 					
 					foreach($reservasDomingo as $reserva):
-						$entre = true;
+						
 						if($reserva->getHora() == $hora):
+						$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -35,17 +36,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:
@@ -54,9 +51,8 @@
 					
 					foreach($reservasLunes as $reserva):
 						
-						$entre = true;
-						
 						if($reserva->getHora() == $hora):
+							$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -67,17 +63,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:
@@ -86,9 +78,8 @@
 					
 					foreach($reservasMartes as $reserva):
 						
-						$entre = true;
-						
 						if($reserva->getHora() == $hora):
+						$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -99,17 +90,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:
@@ -118,9 +105,8 @@
 					
 					foreach($reservasMiercoles as $reserva):
 						
-						$entre = true;
-						
 						if($reserva->getHora() == $hora):
+						$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -131,17 +117,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:
@@ -150,9 +132,8 @@
 					
 					foreach($reservasJueves as $reserva):
 						
-						$entre = true;
-						
 						if($reserva->getHora() == $hora):
+						$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -163,17 +144,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:
@@ -182,9 +159,8 @@
 					
 					foreach($reservasViernes as $reserva):
 						
-						$entre = true;
-						
 						if($reserva->getHora() == $hora):
+						$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -195,17 +171,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:
@@ -214,9 +186,8 @@
 					
 					foreach($reservasSabado as $reserva):
 						
-						$entre = true;
-						
 						if($reserva->getHora() == $hora):
+						$entre = true;
 				?>
 						<td class="danger">
 							<?php echo $reserva->getCliente()->getNombre(); ?>
@@ -227,17 +198,13 @@
 							<br>
 							<?php echo $reserva->getHora(); ?>
 						</td>
-					<?php else: ?>
-							<td class="success">
-								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
-							</td>
 					<?php endif; ?>
 				
 				<?php endforeach;
 					
 					if($entre == false): ?>
-						
 						<td class="success">
+							<br>
 							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
 						</td>
 					<?php else:

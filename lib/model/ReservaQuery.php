@@ -63,7 +63,7 @@ class ReservaQuery extends BaseReservaQuery
 		
 		$dia_de_la_semana = $local['tm_wday'];
 		
-		$domingo = date('Y-m-d', strtotime($hoy. ' -'. $dia_de_la_semana. ' day'));
+		$domingo = date('Y-m-d', strtotime($hoy. ' +'. (6-$dia_de_la_semana). ' day'));
 		$lunes = date('Y-m-d', strtotime($domingo. ' +1 day'));
 		$martes = date('Y-m-d', strtotime($domingo. ' +2 day'));
 		$miercoles = date('Y-m-d', strtotime($domingo. ' +3 day'));

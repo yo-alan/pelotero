@@ -17,21 +17,27 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+	$local = localtime(time(), true);
+	$hoy = ($local['tm_year']+1900). "-". ($local['tm_mon']+1). "-". $local['tm_mday'];
+	$dia_de_la_semana = $local['tm_wday'];
+	$domingo = date('Y-m-d', strtotime($hoy. ' +'. (7-$dia_de_la_semana). ' day'));
+	
+	
+	$this->primerDia = $this->queDiaEs($hoy);
+	$this->segundoDia = $this->queDiaEs($domingo);
+	$this->tercerDia = $this->queDiaEs($domingo. ' +1 day');
+	$this->cuartoDia = $this->queDiaEs($domingo. ' +2 day');
+	$this->quintoDia = $this->queDiaEs($domingo. ' +3 day');
+	$this->sextoDia = $this->queDiaEs($domingo. ' +4 day');
+	$this->septimoDia = $this->queDiaEs($domingo. ' +5 day');
 	
 	$this->reservasDomingo = ReservaQuery::create()->reservasDelDia(0);
-	
 	$this->reservasLunes = ReservaQuery::create()->reservasDelDia(1);
-	
 	$this->reservasMartes = ReservaQuery::create()->reservasDelDia(2);
-	
 	$this->reservasMiercoles = ReservaQuery::create()->reservasDelDia(3);
-	
 	$this->reservasJueves = ReservaQuery::create()->reservasDelDia(4);
-	
 	$this->reservasViernes = ReservaQuery::create()->reservasDelDia(5);
-	
 	$this->reservasSabado = ReservaQuery::create()->reservasDelDia(6);
-	
   }
   
   public function executeAgregar(sfWebRequest $request)
@@ -227,5 +233,14 @@ class reservaActions extends sfActions
 	$this->renderText(json_encode($reservas));
 	
 	return sfView::NONE;
+  }
+  
+  private function queDiaEs($fecha){
+	
+	$semana = array('domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado');
+	
+	$dia = localtime(strtotime($fecha), true);
+	
+	return $semana[$dia['tm_wday']];
   }
 }
