@@ -63,46 +63,9 @@ class ReservaQuery extends BaseReservaQuery
 		
 		$dia_de_la_semana = $local['tm_wday'];
 		
-		$domingo = date('Y-m-d', strtotime($hoy. ' +'. (6-$dia_de_la_semana). ' day'));
-		$lunes = date('Y-m-d', strtotime($domingo. ' +1 day'));
-		$martes = date('Y-m-d', strtotime($domingo. ' +2 day'));
-		$miercoles = date('Y-m-d', strtotime($domingo. ' +3 day'));
-		$jueves = date('Y-m-d', strtotime($domingo. ' +4 day'));
-		$viernes = date('Y-m-d', strtotime($domingo. ' +5 day'));
-		$sabado = date('Y-m-d', strtotime($domingo. ' +6 day'));
+		$dia_elegido = date('Y-m-d', strtotime($hoy. ' +'. $dia. ' day'));
 		
-		if($dia == 0)
-			return $this->filterByFecha($domingo)
-						->orderBy('hora')
-						->orderBy('fecha')
-						->find();
-		elseif($dia == 1)
-			return $this->filterByFecha($lunes)
-						->orderBy('hora')
-						->orderBy('fecha')
-						->find();
-		elseif($dia == 2)
-			return $this->filterByFecha($martes)
-						->orderBy('hora')
-						->orderBy('fecha')
-						->find();
-		elseif($dia == 3)
-			return $this->filterByFecha($miercoles)
-						->orderBy('hora')
-						->orderBy('fecha')
-						->find();
-		elseif($dia == 4)
-			return $this->filterByFecha($jueves)
-						->orderBy('hora')
-						->orderBy('fecha')
-						->find();
-		elseif($dia == 5)
-			return $this->filterByFecha($viernes)
-						->orderBy('hora')
-						->orderBy('fecha')
-						->find();
-		elseif($dia == 6)
-			return $this->filterByFecha($sabado)
+		return $this->filterByFecha($dia_elegido)
 						->orderBy('hora')
 						->orderBy('fecha')
 						->find();
