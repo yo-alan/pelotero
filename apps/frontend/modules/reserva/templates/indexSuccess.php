@@ -3,13 +3,13 @@
 		<thead>
 			<tr>
 				<th>Hora</th>
-				<th><?php echo $primerDia ?></th>
-				<th><?php echo $segundoDia ?></th>
-				<th><?php echo $tercerDia ?></th>
-				<th><?php echo $cuartoDia ?></th>
-				<th><?php echo $quintoDia ?></th>
-				<th><?php echo $sextoDia ?></th>
-				<th><?php echo $septimoDia ?></th>
+				<th><?php echo $primerDia['nombre'] ?></th>
+				<th><?php echo $segundoDia['nombre'] ?></th>
+				<th><?php echo $tercerDia['nombre'] ?></th>
+				<th><?php echo $cuartoDia['nombre'] ?></th>
+				<th><?php echo $quintoDia['nombre'] ?></th>
+				<th><?php echo $sextoDia['nombre'] ?></th>
+				<th><?php echo $septimoDia['nombre'] ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -43,7 +43,7 @@
 					if($entre == false): //Convertir esto en un partial?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". "&hora=". $hora ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $primerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;
@@ -70,7 +70,7 @@
 					if($entre == false): ?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". "&hora=". $hora ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $segundoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;
@@ -97,7 +97,7 @@
 					if($entre == false): ?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $tercerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;
@@ -124,7 +124,7 @@
 					if($entre == false): ?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $cuartoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;
@@ -151,7 +151,7 @@
 					if($entre == false): ?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $quintoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;
@@ -178,7 +178,7 @@
 					if($entre == false): ?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $sextoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;
@@ -205,7 +205,7 @@
 					if($entre == false): ?>
 						<td class="success">
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar') ?>">Agregar reserva</a>
+							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $septimoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
 						</td>
 					<?php else:
 							$entre = false;

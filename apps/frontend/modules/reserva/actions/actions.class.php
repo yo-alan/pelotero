@@ -17,17 +17,32 @@ class reservaActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-	$local = localtime(time(), true);
-	$hoy = ($local['tm_year']+1900). "-". ($local['tm_mon']+1). "-". $local['tm_mday'];
+	$hoy = $this->diaDeHoy();
+	
+	$this->primerDia = array();
+	$this->segundoDia = array();
+	$this->tercerDia = array();
+	$this->cuartoDia = array();
+	$this->quintoDia = array();
+	$this->sextoDia = array();
+	$this->septimoDia = array();
 	
 	//Determina que dia es para imprimirlo en el template.
-	$this->primerDia = $this->queDiaEs($hoy);
-	$this->segundoDia = $this->queDiaEs($hoy. ' +1 day');
-	$this->tercerDia = $this->queDiaEs($hoy. ' +2 day');
-	$this->cuartoDia = $this->queDiaEs($hoy. ' +3 day');
-	$this->quintoDia = $this->queDiaEs($hoy. ' +4 day');
-	$this->sextoDia = $this->queDiaEs($hoy. ' +5 day');
-	$this->septimoDia = $this->queDiaEs($hoy. ' +6 day');
+	$this->primerDia['fecha'] = $hoy;
+	$this->segundoDia['fecha'] = date('Y-m-d', strtotime($hoy. ' +1 day'));
+	$this->tercerDia['fecha'] = date('Y-m-d', strtotime($hoy. ' +2 day'));
+	$this->cuartoDia['fecha'] = date('Y-m-d', strtotime($hoy. ' +3 day'));
+	$this->quintoDia['fecha'] = date('Y-m-d', strtotime($hoy. ' +4 day'));
+	$this->sextoDia['fecha'] = date('Y-m-d', strtotime($hoy. ' +5 day'));
+	$this->septimoDia['fecha'] = date('Y-m-d', strtotime($hoy. ' +6 day'));
+	
+	$this->primerDia['nombre'] = $this->queDiaEs($this->primerDia['fecha']);
+	$this->segundoDia['nombre'] = $this->queDiaEs($this->segundoDia['fecha']);
+	$this->tercerDia['nombre'] = $this->queDiaEs($this->tercerDia['fecha']);
+	$this->cuartoDia['nombre'] = $this->queDiaEs($this->cuartoDia['fecha']);
+	$this->quintoDia['nombre'] = $this->queDiaEs($this->quintoDia['fecha']);
+	$this->sextoDia['nombre'] = $this->queDiaEs($this->sextoDia['fecha']);
+	$this->septimoDia['nombre'] = $this->queDiaEs($this->septimoDia['fecha']);
 	
 	$this->reservasPrimerDia = ReservaQuery::create()->reservasDelDia(0);
 	$this->reservasSegundoDia = ReservaQuery::create()->reservasDelDia(1);
@@ -92,6 +107,12 @@ class reservaActions extends sfActions
 			$this->getUser()->setFlash('error', 'Los datos ingresados no son correctos...');
 		
 		$this->redirect('reserva/agregar');
+	}else{
+		
+		$this->fecha = $request->getParameter('fecha', $this->diaDeHoy());
+		$this->hora = $request->getParameter('hora', '9:00');
+		
+		
 	}
 	
 	$respuesta = $this->getResponse();
@@ -241,4 +262,12 @@ class reservaActions extends sfActions
 	
 	return $semana[$dia['tm_wday']];
   }
+  
+  private function diaDeHoy(){
+	
+	$local = localtime(time(), true);
+	
+	return ($local['tm_year']+1900). "-". ($local['tm_mon']+1). "-". $local['tm_mday'];
+  }
+  
 }

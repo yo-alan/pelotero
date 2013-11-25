@@ -27,19 +27,19 @@
 		<div class="form-group<?php echo $errorFecha ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Dia:</label>
 			<div class="col-lg-10">
-				<input type="date" class="form-control" name="reserva[fecha]" placeholder="Dia de la reserva">
+				<input type="date" class="form-control" name="reserva[fecha]" value="<?php echo $fecha ?>">
 			</div>
 		</div>
 		<div class="form-group<?php echo $errorHora ? " has-error" : ""; ?>">
 			<label class="col-lg-2 control-label">Hora:</label>
 			<div class="col-lg-10">
 				<select name="reserva[hora]" class="form-control">
-					<option value="9:00">9:00</option>
-					<option value="13:00">13:00</option>
-					<option value="15:00">15:00</option>
-					<option value="17:00">17:00</option>
-					<option value="19:00">19:00</option>
-					<option value="21:00">21:00</option>
+					<option <?php if($hora == '9:00') echo "selected='selected'"?> value="9:00">9:00</option>
+					<option <?php if($hora == '13:00') echo "selected='selected'"?> value="13:00">13:00</option>
+					<option <?php if($hora == '15:00') echo "selected='selected'"?> value="15:00">15:00</option>
+					<option <?php if($hora == '17:00') echo "selected='selected'"?> value="17:00">17:00</option>
+					<option <?php if($hora == '19:00') echo "selected='selected'"?> value="19:00">19:00</option>
+					<option <?php if($hora == '21:00') echo "selected='selected'"?> value="21:00">21:00</option>
 				</select>
 			</div>
 		</div>
