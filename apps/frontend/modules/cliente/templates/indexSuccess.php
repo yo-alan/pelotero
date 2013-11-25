@@ -13,8 +13,8 @@
 	  </thead>
 	  <tbody>
 		<tr>
-			<td><input name="cliente[nombre]" class="form-control" type="text"/></td>
-			<td><input name="cliente[telefono]" class="form-control" type="text"/></td>
+			<td><input name="cliente[nombre]" class="form-control" type="text" placeholder="Nombre"/></td>
+			<td><input name="cliente[telefono]" class="form-control" type="text" placeholder="Telefono"/></td>
 			<td><button class="btn btn-success btn-block" type="submit">Agregar</button></td>
 		</tr>
 		<?php foreach($clientes as $cliente): ?>
@@ -35,10 +35,10 @@
 	</table>
 </form>
 <div align="left" style="width: 80%">
-	<a href="<?php echo url_for('cliente/index?pg='. ($pagina-1)) ?>"><- Anterior</a>
+	<a href="<?php echo url_for('cliente/index?pag='. ($pagina-1)) ?>"><- Anterior</a>
 </div>
 <div align="right" style="width: 80%">
-	<a href="<?php echo url_for('cliente/index?pg='. ($pagina+1)) ?>">Siguiente -></a>
+	<a href="<?php echo url_for('cliente/index?pag='. ($pagina+1)) ?>">Siguiente -></a>
 </div>
 
 </center>

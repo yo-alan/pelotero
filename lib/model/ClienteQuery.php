@@ -16,6 +16,7 @@
 class ClienteQuery extends BaseClienteQuery
 {
 	private $valido = false;
+	private $cant_elem_pag = 20;
 	
 	public function validar($datos){
 		
@@ -59,5 +60,10 @@ class ClienteQuery extends BaseClienteQuery
 	public function esValido(){
 		
 		return $this->valido;
+	}
+	
+	public function pagina($pagina){
+		
+		return $this->paginate($page = $pagina, $maxPerPage = $this->cant_elem_pag);
 	}
 }
