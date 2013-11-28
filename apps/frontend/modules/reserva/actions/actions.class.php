@@ -256,7 +256,7 @@ class reservaActions extends sfActions
   
   private function queDiaEs($fecha){
 	
-	$semana = array('domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado');
+	$semana = array('Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado');
 	
 	$dia = localtime(strtotime($fecha), true);
 	

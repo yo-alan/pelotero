@@ -15,202 +15,328 @@
 		<tbody>
 			<?php
 				$horas = array('9:00','13:00','15:00','17:00','19:00','21:00');
+				$horasSemana = array('15:00', '19:00');
+				$semana = array('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes');
+				
 				foreach($horas as $hora):
 			?>
 			<tr>
 				<td><?php echo $hora; ?></td>
 				<?php
 					$entre = false;
+					$dia_correcto = false;
 					
-					foreach($reservasPrimerDia as $reserva):
-						
-						if($reserva->getHora() == $hora):
-						$entre = true;
-				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
-							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
-							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
-						</td>
-					<?php endif; ?>
-				
-				<?php endforeach;
-					
-					if($entre == false): //Convertir esto en un partial?>
-						<td class="success">
-							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $primerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
-						</td>
-					<?php else:
-							$entre = false;
+					if(in_array($primerDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($primerDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
 					endif;
 					
-					foreach($reservasSegundoDia as $reserva):
+					if($dia_correcto):
 						
-						if($reserva->getHora() == $hora):
-							$entre = true;
+						foreach($reservasPrimerDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
 				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
-							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
-							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
-						</td>
-					<?php endif; ?>
-				
-				<?php endforeach;
+								<td class="danger">
+									<?php echo $reserva->getCliente()->getNombre(); ?>
+									<br>
+									<?php echo $reserva->getCliente()->getTelefono(); ?>
+									<br>
+									<?php echo $reserva->getFecha(); ?>
+									<br>
+									<?php echo $reserva->getHora(); ?>
+								</td>
+						<?php endif; ?>
+					<?php endforeach; ?>
 					
-					if($entre == false): ?>
-						<td class="success">
+					<?php if($entre == false): //Convertir esto en un partial?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $primerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $segundoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							disponible
 						</td>
-					<?php else:
-							$entre = false;
+				<?php endif;
+					
+					$dia_correcto = false;
+					
+					if(in_array($segundoDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($segundoDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
 					endif;
 					
-					foreach($reservasTercerDia as $reserva):
-						
-						if($reserva->getHora() == $hora):
-							$entre = true;
+					if($dia_correcto):
+						foreach($reservasSegundoDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
 				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
-							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
-							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
-						</td>
-					<?php endif; ?>
-				
-				<?php endforeach;
+							<td class="danger">
+								<?php echo $reserva->getCliente()->getNombre(); ?>
+								<br>
+								<?php echo $reserva->getCliente()->getTelefono(); ?>
+								<br>
+								<?php echo $reserva->getFecha(); ?>
+								<br>
+								<?php echo $reserva->getHora(); ?>
+							</td>
+						<?php endif; ?>
 					
-					if($entre == false): ?>
-						<td class="success">
+					<?php endforeach;
+					
+						if($entre == false): ?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $segundoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $tercerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							disponible
 						</td>
-					<?php else:
-							$entre = false;
+				<?php endif;
+					
+					$dia_correcto = false;
+					
+					if(in_array($tercerDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($tercerDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
 					endif;
 					
-					foreach($reservasCuartoDia as $reserva):
+					if($dia_correcto):
 						
-						if($reserva->getHora() == $hora):
-						$entre = true;
+						foreach($reservasTercerDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
 				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
-							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
-							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
-						</td>
-					<?php endif; ?>
-				
-				<?php endforeach;
+							<td class="danger">
+								<?php echo $reserva->getCliente()->getNombre(); ?>
+								<br>
+								<?php echo $reserva->getCliente()->getTelefono(); ?>
+								<br>
+								<?php echo $reserva->getFecha(); ?>
+								<br>
+								<?php echo $reserva->getHora(); ?>
+							</td>
+						<?php endif; ?>
 					
-					if($entre == false): ?>
-						<td class="success">
+					<?php endforeach;
+						
+						if($entre == false): ?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $tercerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $cuartoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							disponible
 						</td>
-					<?php else:
-							$entre = false;
+				<?php endif;
+					
+					$dia_correcto = false;
+					
+					if(in_array($cuartoDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($cuartoDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
 					endif;
 					
-					foreach($reservasQuintoDia as $reserva):
+					if($dia_correcto):
 						
-						if($reserva->getHora() == $hora):
-						$entre = true;
+						foreach($reservasCuartoDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
 				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
-							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
-							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
-						</td>
-					<?php endif; ?>
-				
-				<?php endforeach;
+							<td class="danger">
+								<?php echo $reserva->getCliente()->getNombre(); ?>
+								<br>
+								<?php echo $reserva->getCliente()->getTelefono(); ?>
+								<br>
+								<?php echo $reserva->getFecha(); ?>
+								<br>
+								<?php echo $reserva->getHora(); ?>
+							</td>
+						<?php endif; ?>
 					
-					if($entre == false): ?>
-						<td class="success">
+					<?php endforeach;
+						
+						if($entre == false): ?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $cuartoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $quintoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							disponible
 						</td>
-					<?php else:
-							$entre = false;
+				<?php endif;
+					
+					$dia_correcto = false;
+					
+					if(in_array($quintoDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($quintoDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
 					endif;
 					
-					foreach($reservasSextoDia as $reserva):
+					if($dia_correcto):
 						
-						if($reserva->getHora() == $hora):
-						$entre = true;
+						foreach($reservasQuintoDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
 				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
-							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
-							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
-						</td>
-					<?php endif; ?>
-				
-				<?php endforeach;
+							<td class="danger">
+								<?php echo $reserva->getCliente()->getNombre(); ?>
+								<br>
+								<?php echo $reserva->getCliente()->getTelefono(); ?>
+								<br>
+								<?php echo $reserva->getFecha(); ?>
+								<br>
+								<?php echo $reserva->getHora(); ?>
+							</td>
+						<?php endif; ?>
 					
-					if($entre == false): ?>
-						<td class="success">
+					<?php endforeach;
+						
+						if($entre == false): ?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $quintoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $sextoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							disponible
 						</td>
-					<?php else:
-							$entre = false;
+				<?php endif;
+					
+					$dia_correcto = false;
+					
+					if(in_array($sextoDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($sextoDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
 					endif;
 					
-					foreach($reservasSeptimoDia as $reserva):
+					if($dia_correcto):
 						
-						if($reserva->getHora() == $hora):
-						$entre = true;
+						foreach($reservasSextoDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
 				?>
-						<td class="danger">
-							<?php echo $reserva->getCliente()->getNombre(); ?>
+							<td class="danger">
+								<?php echo $reserva->getCliente()->getNombre(); ?>
+								<br>
+								<?php echo $reserva->getCliente()->getTelefono(); ?>
+								<br>
+								<?php echo $reserva->getFecha(); ?>
+								<br>
+								<?php echo $reserva->getHora(); ?>
+							</td>
+						<?php endif; ?>
+					
+					<?php endforeach;
+						
+						if($entre == false): ?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $sextoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<?php echo $reserva->getCliente()->getTelefono(); ?>
+							disponible
+						</td>
+				<?php endif;
+					
+					$dia_correcto = false;
+					
+					if(in_array($septimoDia['nombre'], $semana) && in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					elseif(!in_array($septimoDia['nombre'], $semana) && !in_array($hora, $horasSemana)):
+						$dia_correcto = true;
+					endif;
+					
+					if($dia_correcto):
+						
+						foreach($reservasSeptimoDia as $reserva):
+							
+							if($reserva->getHora() == $hora):
+								$entre = true;
+				?>
+							<td class="danger">
+								<?php echo $reserva->getCliente()->getNombre(); ?>
+								<br>
+								<?php echo $reserva->getCliente()->getTelefono(); ?>
+								<br>
+								<?php echo $reserva->getFecha(); ?>
+								<br>
+								<?php echo $reserva->getHora(); ?>
+							</td>
+						<?php endif; ?>
+					
+					<?php endforeach;
+						
+						if($entre == false): ?>
+							<td class="success">
+								<br>
+								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $septimoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
+							</td>
+						<?php else:
+								$entre = false;
+						endif;
+						
+					else: ?>
+						<td class="warning">
+							Horario
+							<br>no
 							<br>
-							<?php echo $reserva->getFecha(); ?>
-							<br>
-							<?php echo $reserva->getHora(); ?>
+							disponible
 						</td>
 					<?php endif; ?>
-				
-				<?php endforeach;
-					
-					if($entre == false): ?>
-						<td class="success">
-							<br>
-							<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $septimoDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
-						</td>
-					<?php else:
-							$entre = false;
-					endif;
-				?>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

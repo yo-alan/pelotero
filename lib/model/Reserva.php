@@ -14,13 +14,13 @@ class Reserva extends BaseReserva
 {
 	private $valido = false;
 	
-	public function validar($datos){
+	public function validar($reserva){
 		
 		$v = new sfValidatorDate(
 			array('min' => time())
 		);
 		
-		$fecha = $v->clean($datos['fecha']);
+		$fecha = $v->clean($reserva['fecha']);
 		
 		
 		//~ $v = new sfValidatorPropelUnique(
