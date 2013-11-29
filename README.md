@@ -17,6 +17,6 @@ cp config/databases.yml.dist config/databases.yml
 php symfony project:permissions
 php symfony plugin:publish-assets
 ```
-Luego abrir un navegador web con la siguiente URL: http://localhost/pelotero
+Luego abrir un navegador web con la siguiente URL: [http://localhost/pelotero](http://localhost/pelotero)
 
 Y listo!!
