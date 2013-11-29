@@ -23,43 +23,37 @@ class Reserva extends BaseReserva
 		$fecha = $v->clean($reserva['fecha']);
 		
 		
-		//~ $v = new sfValidatorPropelUnique(
-			//~ array('max' => time())
-		//~ );
-		
-		//$fecha = $v->clean($datos['fecha']);
-		
-		
-		
 		$horasAceptadasSemana = array('15:00', '19:00');
 		$horasAceptadasFinde = array('9:00', '13:00', '17:00', '21:00');
-		$hora_actual = localtime(time(), true);
-		$dia_semana = $hora_actual["tm_wday"];
+		
+		$dia = localtime(strtotime($fecha), true);
+		$dia_semana = $dia['tm_wday'];
 		
 		$todoCorrecto = true;
 		
-		if(!ctype_digit($datos['senia'])){
-			echo "mal la seña";
+		if(!ctype_digit($reserva['senia'])){
 			$todoCorrecto = false;
 		}
+		if(!in_array($reserva['hora'], $horasAceptadasSemana) && !in_array($reserva['hora'], $horasAceptadasFinde)){
+			$todoCorrecto = false;
+		}
+		
 		if($todoCorrecto){
-			if($dia_semana != 0 && $dia_semana != 6){
-				if((!in_array($datos['hora'], $horasAceptadasSemana))){
+			if($dia_semana == 0 || $dia_semana == 6){
+				if((!in_array($reserva['hora'], $horasAceptadasFinde))){
 					$todoCorrecto = false;
 				}
 			}
-			else{
-				if((!in_array($datos['hora'], $horasAceptadasFinde))){
-					$todoCorrecto = false;
-				}
+			else if((!in_array($reserva['hora'], $horasAceptadasSemana))){
+				$todoCorrecto = false;
 			}
 		}
 		
 		if($todoCorrecto){
 			
-			$senia = $datos['senia'];
-			$fecha = $datos['fecha'];
-			$hora = $datos['hora'];
+			$senia = $reserva['senia'];
+			$fecha = $reserva['fecha'];
+			$hora = $reserva['hora'];
 			
 			$this->setSenia($senia)
 				->setFecha($fecha)

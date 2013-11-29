@@ -99,6 +99,10 @@ class reservaActions extends sfActions
 					$this->getUser()->setFlash('error', "Reserva: Hubo un error al guardar la reserva.");
 				}
 			}
+			else{
+				$todoCorrecto = false;
+				$this->getUser()->setFlash('error', "Reserva: Los datos ingresados no son válidos.");
+			}
 			
 			if($todoCorrecto)
 				$this->getUser()->setFlash('exito', '¡La operación se realizó exitosamente!');

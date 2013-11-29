@@ -18,6 +18,8 @@
 				$horasSemana = array('15:00', '19:00');
 				$semana = array('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes');
 				
+				//ACORDATE DE HACER PARTIALS.
+				
 				foreach($horas as $hora):
 			?>
 			<tr>
@@ -51,7 +53,7 @@
 						<?php endif; ?>
 					<?php endforeach; ?>
 					
-					<?php if($entre == false): //Convertir esto en un partial?>
+					<?php if($entre == false):?>
 							<td class="success">
 								<br>
 								<a class="btn btn-success btn-block" href="<?php echo url_for('reserva/agregar'). "?fecha=". $primerDia['fecha']. "&hora=". $hora ?>">Agregar reserva</a>
@@ -61,10 +63,6 @@
 						endif;
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 				<?php endif;
 					
@@ -105,10 +103,6 @@
 						endif;
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 				<?php endif;
 					
@@ -150,10 +144,6 @@
 						endif;
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 				<?php endif;
 					
@@ -195,10 +185,6 @@
 						endif;
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 				<?php endif;
 					
@@ -240,10 +226,6 @@
 						endif;
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 				<?php endif;
 					
@@ -285,10 +267,6 @@
 						endif;
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 				<?php endif;
 					
@@ -331,10 +309,6 @@
 						
 					else: ?>
 						<td class="warning">
-							Horario
-							<br>no
-							<br>
-							disponible
 						</td>
 					<?php endif; ?>
 			</tr>
